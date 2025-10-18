@@ -1,8 +1,8 @@
-import Hero from '@/components/Sections/Hero';
-import Mobileapp from '@/components/Sections/Mobileapp';
-import Servics from '@/components/Sections/Servics';
-import Review from '@/components/Sections/Review';
-import Footer from '@/components/Sections/Footer';
+import Hero from '@/components/LandingPage/Hero';
+import Mobileapp from '@/components/LandingPage/Mobileapp';
+import Servics from '@/components/LandingPage/Servics';
+import Review from '@/components/LandingPage/Review';
+import Footer from '@/components/LandingPage/Footer';
 
 export default function Home() {
   return (
@@ -11,7 +11,6 @@ export default function Home() {
       <Mobileapp/>
       <Servics/>
       <Review/>
-      <Footer/>
     </main>
   );
 }
