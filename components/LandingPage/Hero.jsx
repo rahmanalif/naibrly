@@ -131,23 +131,23 @@ export default function HeroSection() {
 
                 {/* Simplified Mobile Image Grid */}
                 <div className="mb-8 grid grid-cols-2 gap-3 lg:hidden max-w-md mx-auto">
-                    <div className="bg-gray-300 rounded-2xl aspect-square flex items-center justify-center overflow-hidden">
-                        <Image src="/ImageGrid/image (1).png" alt="Service Image 1" layout="fill" className="object-cover" />
+                    <div className="bg-gray-300 rounded-2xl aspect-square flex items-center justify-center overflow-hidden relative">
+                        <Image src="/ImageGrid/image (1).png" alt="Service Image 1" fill className="object-cover" />
                     </div>
-                    <div className="bg-gray-300 rounded-2xl aspect-square flex items-center justify-center overflow-hidden">
-                        <Image src="/ImageGrid/image (2).png" alt="Service Image 2" layout="fill" className="object-cover" />
+                    <div className="bg-gray-300 rounded-2xl aspect-square flex items-center justify-center overflow-hidden relative">
+                        <Image src="/ImageGrid/image (2).png" alt="Service Image 2" fill className="object-cover" />
                     </div>
-                    <div className="bg-gray-300 rounded-2xl aspect-square flex items-center justify-center overflow-hidden">
-                        <Image src="/ImageGrid/image (3).png" alt="Service Image 3" layout="fill" className="object-cover" />
+                    <div className="bg-gray-300 rounded-2xl aspect-square flex items-center justify-center overflow-hidden relative">
+                        <Image src="/ImageGrid/image (3).png" alt="Service Image 3" fill className="object-cover" />
                     </div>
-                    <div className="bg-gray-300 rounded-2xl aspect-square flex items-center justify-center overflow-hidden">
-                        <Image src="/ImageGrid/image (4).png" alt="Service Image 4" layout="fill" className="object-cover" />
+                    <div className="bg-gray-300 rounded-2xl aspect-square flex items-center justify-center overflow-hidden relative">
+                        <Image src="/ImageGrid/image (4).png" alt="Service Image 4" fill className="object-cover" />
                     </div>
                 </div>
 
                 {/* Services Section */}
                 <div className="border-t border-gray-200 pt-4">
-                    <h2 className="text-w-[150]  sm:text-3xl font-semibold text-teal-600 mb-6 sm:mb-8">Popular services in Naibrly</h2>
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-teal-600 mb-6 sm:mb-8">Popular services in Naibrly</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                         {services.map((service, idx) => (
                             <button
