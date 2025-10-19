@@ -37,7 +37,7 @@ export default function PlumbersSpecialty() {
   ];
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-12">
+    <div className="w-full bg[#FAFAFA] max-w-6xl mx-auto px-4 py-12">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">
           Plumbers near <span className="text-blue-500">Central</span>

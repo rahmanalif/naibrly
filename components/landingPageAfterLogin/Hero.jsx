@@ -13,7 +13,7 @@ export default function PlumberFinder() {
   };
 
   return (
-    <div className="bg-white px-4 py-12 md:py-20">
+    <div className="bg-white px-4 py-12 md:py-0.5">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
@@ -52,7 +52,7 @@ export default function PlumberFinder() {
           <div className="relative h-80 md:h-96 overflow-hidden">
             <div className="absolute -top-1/2 right-0 w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden bg-gray-100 shadow-lg">
               <img
-                src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&h=500&fit=crop"
+                src="/round.jpg"
                 alt="Professional plumber at work"
                 className="w-full h-full object-cover"
               />

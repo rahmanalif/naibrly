@@ -2,7 +2,7 @@
 
 export default function NaibrlyLanding() {
   return (
-    <section className="w-full px-4 py-12 md:py-20 bg-cover bg-center bg-no-repeat bg-[url('/bg.jpg')]">
+    <section className="w-full bg-cover bg-center bg-no-repeat bg-[url('/bg.jpg')]">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
 

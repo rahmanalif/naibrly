@@ -33,10 +33,10 @@ export default function ReviewsSection() {
 
   return (
     <div className="w-full flex justify-center py-2">
-      <div className="w-full max-w-5xl">
+      <div className="w-full max-w-6xl">
+        <h2 className="text-3xl font-bold mb-8">Reviews</h2>
         {/* Reviews Header */}
         <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-8">Reviews</h2>
 
           {/* Rating Summary */}
           <div className="flex items-start gap-8 mb-10">
