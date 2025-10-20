@@ -1,15 +1,47 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Lock, Mail } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { login } = useAuth();
+  const router = useRouter();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // Since you don't have a backend yet, this is a mock login
+    // Replace this with your actual API call when you have a backend
+    setTimeout(() => {
+      // Mock user data - replace with actual API response
+      const mockUser = {
+        id: '1',
+        name: email.split('@')[0], // Use email prefix as name for demo
+        email: email,
+        profileImage: null,
+        role: 'user'
+      };
+
+      // Call the login function from AuthContext
+      login(mockUser);
+
+      setIsLoading(false);
+
+      // Redirect to home page
+      router.push('/');
+    }, 1000); // Simulate network delay
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
@@ -20,6 +52,8 @@ export default function LoginForm() {
           <br />
           save you time and money.
         </h1>
+
+        <form onSubmit={handleLogin}>
 
         {/* Email Input */}
         <div className="mb-6">
@@ -68,9 +102,14 @@ export default function LoginForm() {
         </div>
 
         {/* Log In Button */}
-        <Button className="w-full bg-teal-700 hover:bg-teal-800 text-white py-2 rounded-md font-medium mb-6">
-          Log in
+        <Button
+          type="submit"
+          disabled={isLoading || !email || !password}
+          className="w-full bg-teal-700 hover:bg-teal-800 text-white py-2 rounded-md font-medium mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isLoading ? 'Logging in...' : 'Log in'}
         </Button>
+        </form>
 
         {/* Divider */}
         <div className="relative mb-6">

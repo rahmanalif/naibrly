@@ -1,11 +1,15 @@
+'use client';
+
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function SignInModal() {
+  const router = useRouter();
 
   const handleSignIn = () => {
-    console.log('Sign in clicked');
+    router.push('/Login');
   };
 
   return (

@@ -21,17 +21,17 @@ export default function ReviewsSection() {
   ];
 
   return (
-    <section className="w-full px-4 py-16 bg-[#F4F2F2]">
+    <section className="w-full px-4 sm:px-6 py-8 sm:py-12 lg:py-16 bg-[#F4F2F2]">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-normal text-gray-900 mb-12">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-normal text-gray-900 mb-8 sm:mb-12 leading-tight">
             These reviews say it better.
           </h2>
         </div>
 
         {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {reviews.map((review) => (
             <div key={review.id} className="bg-white rounded-2xl overflow-hidden shadow-sm">
               <div className="aspect-square bg-gray-200 overflow-hidden">
@@ -41,8 +41,8 @@ export default function ReviewsSection() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="p-4">
-                <p className="text-sm text-gray-600 mb-2">{review.name} -</p>
+              <div className="p-3 sm:p-4">
+                <p className="text-xs sm:text-sm text-gray-600 mb-2">{review.name} -</p>
                 <div className="flex gap-1">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -58,11 +58,11 @@ export default function ReviewsSection() {
         </div>
 
         {/* Quote Section */}
-        <div className="max-w-3xl mx-auto">
-          <p className="text-gray-800 text-lg leading-relaxed mb-6">
+        <div className="max-w-3xl mx-auto text-center sm:text-left px-2">
+          <p className="text-gray-800 text-base sm:text-lg leading-relaxed mb-4 sm:mb-6">
             "We found so many people on Naibrly, And those peoples are like our service and give wanderfull review. We are very grateful for your support".
           </p>
-          <p className="text-gray-600 text-base font-medium">
+          <p className="text-gray-600 text-sm sm:text-base font-medium">
             –"Kevin"
           </p>
         </div>

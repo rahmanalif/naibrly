@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git pull origin main)",
+      "Bash(git pull https://github.com/rahmanalif/naibrly.git)",
+      "Bash(tree /L \"c:\\Users\\rahma\\Desktop\\naibrly\" -L 3 -I \"node_modules|.next\")",
+      "Bash(dir /s \"c:\\Users\\rahma\\Desktop\\naibrly\")",
+      "Bash(dir /s \"c:\\Users\\rahma\\Desktop\\naibrly\\app\")",
+      "Bash(findstr /v \"node_modules .next\")",
+      "Bash(dir /s \"c:\\Users\\rahma\\Desktop\\naibrly\\components\")",
+      "Bash(ls -la \"c:\\Users\\rahma\\Desktop\\naibrly\\app\\(auth)\")",
+      "Bash(ls -la \"c:\\Users\\rahma\\Desktop\\naibrly\\app\\(provider)\")",
+      "Bash(ls -la \"c:\\Users\\rahma\\Desktop\\naibrly\\app\\(user)\")",
+      "Bash(ls -la \"c:\\Users\\rahma\\Desktop\\naibrly\\app\\(auth)\\Login\")",
+      "Bash(ls -la \"c:\\Users\\rahma\\Desktop\\naibrly\\app\\(auth)\\Signup\")",
+      "Bash(ls -la \"c:\\Users\\rahma\\Desktop\\naibrly\\app\\(provider)\\Bussniess\")",
+      "Bash(move Servics.jsx Services.jsx)",
+      "Bash(npm run build)",
+      "Bash(npm run lint)",
+      "Bash(git add -A)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

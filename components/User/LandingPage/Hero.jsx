@@ -5,8 +5,12 @@ import Image from 'next/image';
 import { Search, MapPin, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useAuth } from '@/context/AuthContext';
 
 export default function HeroSection() {
+    // Get authentication state
+    const { isAuthenticated, user } = useAuth();
+
     const HouseCleaningIcon = () => (
         <svg width="52" height="74" viewBox="0 0 52 74" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.40234 14.6021V65.7973C8.40234 69.3298 11.2693 72.1968 14.8017 72.1968H43.5991C47.1316 72.1968 49.9986 69.3298 49.9986 65.7973V59.0747C49.9986 51.4883 45.5316 44.6121 38.5979 41.5308L21.2012 33.8004V14.6021" stroke="#0E7A60" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -63,14 +67,27 @@ export default function HeroSection() {
             {/* Header */}
             {/* Hero Section */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-16">
-                {/* Headline */}
-                <div className="text-center mb-8 sm:mb-12">
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-500 mb-2">
-                        You. Your Neighbors. Saving time and money
-                    </h1>
-                    <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-500 mb-2">
-                        on home services with <span className="text-teal-600 font-semibold">Naibrly</span>.
-                    </p>
+                {/* Headline - Changes based on login state */}
+                <div className="text-center mb-8 sm:mb-12 px-2">
+                    {isAuthenticated ? (
+                        <>
+                            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 mb-2">
+                                Welcome back, <span className="text-teal-600">{user?.name || 'there'}</span>!
+                            </h1>
+                            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-gray-500 mb-2">
+                                What service do you need today?
+                            </p>
+                        </>
+                    ) : (
+                        <>
+                            <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-500 mb-2 leading-tight">
+                                You. Your Neighbors. Saving time and money
+                            </h1>
+                            <p className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-500 mb-2 leading-tight">
+                                on home services with <span className="text-teal-600 font-semibold">Naibrly</span>.
+                            </p>
+                        </>
+                    )}
                 </div>
 
                 {/* Search Bar */}

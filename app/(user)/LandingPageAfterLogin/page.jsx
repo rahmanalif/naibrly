@@ -1,6 +1,6 @@
-import Hero from "@/components/User/landingPageAfterLogin/Hero";
-import PlumberInfo from "@/components/User/landingPageAfterLogin/PlumberInfo";
-import Review from "@/components/User/landingPageAfterLogin/Review";
+import Hero from "@/components/User/landing-page-after-login/Hero";
+import PlumberInfo from "@/components/User/landing-page-after-login/PlumberInfo";
+import Review from "@/components/User/landing-page-after-login/Review";
 
 export default function LandingPageAfterLogin() {
     return (
