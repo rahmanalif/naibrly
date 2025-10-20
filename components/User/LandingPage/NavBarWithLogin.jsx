@@ -19,7 +19,7 @@ export default function HeroSection() {
          
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
                     <div class="flex items-center text-xl sm:text-2xl lg:text-3xl text-gray-900">
-                        <Image src="/logo.png" alt="Naibrly Logo" width={28} height={28} class="mr-2" />
+                    <Image src="/logo.png" alt="Naibrly Logo" width={28} height={28} class="mr-2" />
                         Naibrly
                     </div>
                     <NavigationMenu>

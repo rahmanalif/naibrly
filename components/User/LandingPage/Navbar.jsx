@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, ChevronDown, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import SignInModal from '@/components/Modals/WithoutSignUpModal';
+import SignInModal from '@/components/User/Modals/WithoutSignUpModal';
 import Link from 'next/link';
 
 const SubMenuItem = ({ item }) => {
@@ -94,9 +94,17 @@ export default function Navbar() {
     return (
         <div className="bg-white border-b border-gray-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-                <div className="flex items-center text-xl sm:text-2xl lg:text-3xl text-gray-900 font-semibold">
-                    <Image src="/logo.png" alt="Naibrly Logo" width={28} height={28} className="mr-2" />
-                    Naibrly
+                <div className="inline-flex items-center gap-1">
+                    <Image 
+                        src="/logo.png" 
+                        alt="Naibrly Logo" 
+                        width={36} 
+                        height={36} 
+                        className="aspect-square bg-[url('/logo.png')] bg-lightgray bg-cover bg-center bg-no-repeat" 
+                    />
+                    <span className="text-[#333] font-inter text-[24px] font-bold leading-[24px] uppercase" style={{ fontFeatureSettings: "'ss01' on, 'cv01' on" }}>
+                        Naibrly
+                    </span>
                 </div>
 
                 <nav className="flex gap-2 sm:gap-4 items-center">
@@ -107,12 +115,12 @@ export default function Navbar() {
                         Home
                     </Button>
 
-                    <Button
+                    {/* <Button
                         onClick={isHomePage ? openModal : undefined}
                         className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600"
                     >
                         Naibly bundle Offer
-                    </Button>
+                    </Button> */}
 
                     <div className="relative">
                         <Button
