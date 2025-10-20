@@ -1,4 +1,4 @@
-import Text from "@/components/User/terms-of-use/text.jsx";
+import Text from "@/components/User/terms-of-use/Text.jsx";
 
 export default function TermsOfUse() {
     return (
