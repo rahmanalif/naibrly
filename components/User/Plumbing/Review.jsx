@@ -1,6 +1,6 @@
 'use client';
 
-import { Star, ChevronRight, DollarSign, Users, CheckCircle2 } from 'lucide-react';
+import { ChevronRight, DollarSign, Users, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
@@ -50,7 +50,9 @@ export default function PlumberReviews() {
   const StarRating = ({ rating }) => (
     <div className="flex gap-1">
       {[...Array(rating)].map((_, i) => (
-        <Star key={i} size={16} className="fill-yellow-400 text-yellow-400" />
+        <svg key={i} width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.84575 5.74612L7.56075 1.75812C7.53932 1.68398 7.49438 1.61881 7.4327 1.57244C7.37101 1.52606 7.29593 1.50098 7.21875 1.50098C7.14158 1.50098 7.06649 1.52606 7.00481 1.57244C6.94313 1.61881 6.89818 1.68398 6.87675 1.75812L5.59175 5.74412L1.57675 5.79312C1.23075 5.79712 1.08775 6.25912 1.36475 6.47512L4.58675 8.98812L3.38975 13.0061C3.28675 13.3511 3.66175 13.6361 3.94275 13.4271L7.21875 10.9941L10.4948 13.4291C10.7768 13.6381 11.1508 13.3531 11.0478 13.0071L9.85075 8.99012L13.0728 6.47712C13.3498 6.26112 13.2068 5.80012 12.8618 5.79512L8.84575 5.74712V5.74612Z" fill="#0E7A60"/>
+        </svg>
       ))}
     </div>
   );

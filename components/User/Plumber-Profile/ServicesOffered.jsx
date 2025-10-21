@@ -75,12 +75,7 @@ export default function ServicesOffered() {
         <section className="mb-10 pb-10 border-b border-gray-200">
           <div className="mb-4">
             <h2 className="text-lg font-bold text-gray-900">Drain problem</h2>
-            <p className="text-sm text-gray-600 mt-1">
-              {selectedDrainProblems.length > 0 
-                ? `${selectedDrainProblems.length} selected`
-                : 'Select all that apply'
-              }
-            </p>
+            
           </div>
           
           <div className="flex flex-wrap gap-2 md:gap-3">
@@ -105,12 +100,6 @@ export default function ServicesOffered() {
         <section className="mb-10 pb-10 border-b border-gray-200">
           <div className="mb-5">
             <h2 className="text-lg font-bold text-gray-900">Repair urgency</h2>
-            <p className="text-sm text-gray-600 mt-1">
-              {selectedRepairUrgency.length > 0
-                ? `${selectedRepairUrgency.length} selected`
-                : 'Select options'
-              }
-            </p>
           </div>
           
           <div className="space-y-3">
@@ -255,12 +244,7 @@ export default function ServicesOffered() {
           </section>
         )}
 
-        {/* Empty State */}
-        {selectedDrainProblems.length === 0 && selectedRepairUrgency.length === 0 && selectedPropertyTypes.length === 0 && (
-          <div className="text-center py-12 text-gray-500">
-            <p className="text-sm">Start selecting services to create your profile</p>
-          </div>
-        )}
+        
       </div>
     </div>
   );

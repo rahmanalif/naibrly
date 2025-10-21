@@ -2,10 +2,10 @@
 import { useState } from 'react';
 
 export default function SupportSection() {
-  const [imagePath] = useState('/api/placeholder/560/318');
+    const [imagePath] = useState('/Support/support (1).jpg');
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12">
+    <div className=" bg-white flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-6xl">
         {/* Title */}
         <div className="mb-12 text-center">

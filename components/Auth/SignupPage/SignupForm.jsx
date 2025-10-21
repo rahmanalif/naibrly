@@ -285,7 +285,7 @@ export default function CreateAccount() {
 
           {/* Login Link */}
           <p className="text-center text-sm text-gray-600 mt-6">
-            Already have an account? <a href="#" className="text-teal-600 hover:underline font-medium">Log in</a>
+            Already have an account? <a href="/Login" className="text-teal-600 hover:underline font-medium">Log in</a>
           </p>
         </div>
       </div>

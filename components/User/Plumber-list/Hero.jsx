@@ -2,6 +2,7 @@
 import { MapPin, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import Link from 'next/link';
 
 export default function ServiceRequestSection() {
   return (
@@ -38,7 +39,7 @@ export default function ServiceRequestSection() {
           
           {/* Service Type Input */}
           <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm border-2 border-white/30 px-4 py-4 rounded-lg hover:bg-white/15 transition-colors">
-            <FileText className="w-5 h-5 text-white/80 flex-shrink-0" />
+            <FileText className="w-5 h-5 text-white/80 " />
             <Input
               placeholder="e.g. Housing cleaning"
               className="bg-transparent border-0 text-white placeholder:text-white/70 focus:ring-0 p-0 text-sm font-medium"
@@ -55,11 +56,13 @@ export default function ServiceRequestSection() {
           </div>
 
           {/* Add New Request Button */}
+          <Link href="/Plumbing">
           <Button 
             className="w-full h-15 bg-teal-600 hover:bg-teal-700 text-white font-bold py-4 rounded-b-sm text-base transition-colors border-0 mt-2"
           >
             Add New Request
           </Button>
+          </Link>
         </div>
       </div>
     </div>

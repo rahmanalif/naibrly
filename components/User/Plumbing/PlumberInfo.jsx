@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Star, MapPin, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -146,9 +147,11 @@ export default function PlumbersSection() {
                     <p className="text-xl font-bold text-gray-900">{plumber.price}</p>
                     <p className="text-xs text-gray-500">Estimated price</p>
                   </div>
-                  <Button className="bg-teal-700 hover:bg-teal-800 text-white">
-                    View profile
-                  </Button>
+                  <Link href="/Plumber-Profile">
+                    <Button className="bg-teal-700 hover:bg-teal-800 text-white">
+                      View profile
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </Card>

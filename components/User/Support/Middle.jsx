@@ -3,7 +3,7 @@
 
 export default function NaibrlyGuarantee() {
   return (
-    <div className="w-full bg-white py-16">
+    <div className="w-full bg-white py-0">
       <div className="max-w-6xl mx-auto px-4">
         {/* Main Title */}
         <h2

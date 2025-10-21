@@ -63,7 +63,7 @@ export default function Navbar() {
         {
             name: 'Home Repairs & Maintenance',
             subServices: [
-                { name: 'Plumbing', subServices: [] },
+                { name: 'Plumbing', path: '/Plumbing', subServices: [] },
                 { name: 'Locksmiths', subServices: [] },
                 { name: 'Appliance Repairs', subServices: [] },
                 { name: 'Door & window Repairs', subServices: [] },
@@ -71,23 +71,88 @@ export default function Navbar() {
                 { name: 'Electrical', subServices: [] }
             ]
         },
-        { name: 'Cleaning & Organization', subServices: [] },
-        { name: 'Renovations & Upgrades', subServices: [] },
+        {
+            name: 'Cleaning & Organization',
+            subServices: [
+                { name: 'House Cleaning', subServices: [] },
+                { name: 'Carpet Cleaning', subServices: [] },
+                { name: 'Upholstery Cleaning', subServices: [] },
+                { name: 'Home Organization', subServices: [] },
+                { name: 'All Furniture Cleaning', subServices: [] },
+                { name: 'Junk Removal', subServices: [] },
+                { name: 'Duct & Vent Cleaning', subServices: [] },
+                { name: 'Pool Cleaning', subServices: [] },
+                { name: 'Commercial Cleaners', subServices: [] }
+            ]
+        },
+        {
+            name: 'Renovations & Upgrades',
+            subServices: [
+                { name: 'General Contracting', subServices: [] },
+                { name: 'Carpenters', subServices: [] },
+                { name: 'Bathroom Remodeling', subServices: [] },
+                { name: 'Kitchen Remodeling', subServices: [] },
+                { name: 'Flooring Installation', subServices: [] },
+                { name: 'Carpet Installation', subServices: [] },
+                { name: 'Basement Remodeling', subServices: [] }
+            ]
+        },
         {
             name: 'Exterior',
             subServices: [
-                { name: 'Exterior Home Care', subServices: [] },
-                { name: 'Landscaping & Outdoor Services', subServices: [] }
+                {
+                    name: 'Exterior Home Care', 
+                    subServices: [
+                        { name: 'Roofing', subServices: [] },
+                        { name: 'Window Washing', subServices: [] },
+                        { name: 'Chimney Sweeps', subServices: [] },
+                        { name: 'Gutter Cleaning', subServices: [] },
+                        { name: 'Deck Contractors', subServices: [] },
+                        { name: 'Siding', subServices: [] },
+                        { name: 'Basement Remodeling', subServices: [] }
+                    ]
+                },
+                { name: 'Landscaping & Outdoor Services', 
+                    subServices: [
+                        { name: 'Lawn Care', subServices: [] },
+                        { name: 'Landscaping Design', subServices: [] },
+                        { name: 'Gardening', subServices: [] },
+                        { name: 'Sprinkler System Repairs', subServices: [] },
+                        { name: 'Artificial Turf Installation', subServices: [] },
+                        { name: 'Stump Grinding', subServices: [] },
+                        { name: 'Sod Installation', subServices: [] },
+                        { name: 'Arborists', subServices: [] }
+
+                    ] }
             ]
         },
         {
             name: 'More Services',
             subServices: [
-                { name: 'Moving', subServices: [] },
-                { name: 'Installation & Assembly', subServices: [] }
+                { name: 'Moving', 
+                    subServices: [
+                        { name: 'Local Movers', subServices: [] },
+                        { name: 'Long Distance Movers', subServices: [] },
+                        { name: 'Piano Movers', subServices: [] },
+                        { name: 'Packing & Unpacking', subServices: [] },
+                        { name: 'Move In & Move Out Cleaning', subServices: [] },
+                        { name: 'Storage Companies', subServices: [] },
+                        { name: 'Furniture Movers', subServices: [] }
+                    
+                    ] },
+                { name: 'Installation & Assembly', 
+                    subServices: [
+                        { name: 'Holiday Light Hanging', subServices: [] },
+                        { name: 'TV Mounting', subServices: [] },
+                        { name: 'Security Camera Installation', subServices: [] },
+                        { name: 'Appliance Installation', subServices: [] },
+                        { name: 'Ceiling Fan Installation', subServices: [] },
+                        { name: 'Generator Installation', subServices: [] },
+                        { name: 'Furniture Assembly', subServices: [] }
+                    ] }
             ]
         },
-        { name: 'House Painter', subServices: [] },
+        { name: 'House Painter', subServices: [] }
     ];
 
     const openModal = () => setIsModalOpen(true);
@@ -134,17 +199,25 @@ export default function Navbar() {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex gap-2 sm:gap-4 items-center">
-                    <Button
-                        onClick={() => {
-                            // Only show modal if on home page AND not authenticated
-                            if (isHomePage && !isAuthenticated) {
-                                openModal();
-                            }
-                        }}
-                        className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600"
-                    >
-                        Home
-                    </Button>
+                    {isAuthenticated ? (
+                        <Link href="/">
+                            <Button className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600">
+                                Home
+                            </Button>
+                        </Link>
+                    ) : (
+                        <Button
+                            onClick={() => {
+                                // Only show modal if on home page AND not authenticated
+                                if (isHomePage && !isAuthenticated) {
+                                    openModal();
+                                }
+                            }}
+                            className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600"
+                        >
+                            Home
+                        </Button>
+                    )}
 
                     {/* Show "Naibrly Bundle Offer" button only when authenticated */}
                     {isAuthenticated && (
@@ -196,6 +269,35 @@ export default function Navbar() {
                                             <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
                                                 <div className="p-2">
                                                     {services[0].subServices.map((sub, idx) => (
+                                                        sub.path ? (
+                                                            <Link href={sub.path} key={idx}>
+                                                                <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
+                                                                    {sub.name}
+                                                                </button>
+                                                            </Link>
+                                                        ) : (
+                                                            <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
+                                                                {sub.name}
+                                                            </button>
+                                                        )
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div
+                                        className="relative"
+                                        onMouseEnter={() => setHoveredService(1)}
+                                        onMouseLeave={() => setHoveredService(null)}
+                                    >
+                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
+                                            <span className="text-[#00CD49]">Cleaning & Organization</span>
+                                            <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                        </button>
+                                        {hoveredService === 1 && (
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                                <div className="p-2">
+                                                    {services[1].subServices.map((sub, idx) => (
                                                         <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
                                                             {sub.name}
                                                         </button>
@@ -204,30 +306,117 @@ export default function Navbar() {
                                             </div>
                                         )}
                                     </div>
-                                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors">
-                                        Cleaning & Organization
-                                    </button>
-                                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors">
-                                        Renovations & Upgrades
-                                    </button>
+                                    <div
+                                        className="relative"
+                                        onMouseEnter={() => setHoveredService(2)}
+                                        onMouseLeave={() => setHoveredService(null)}
+                                    >
+                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
+                                            <span className="text-[#00CD49]">Renovations & Upgrades</span>
+                                            <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                        </button>
+                                        {hoveredService === 2 && (
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                                <div className="p-2">
+                                                    {services[2].subServices.map((sub, idx) => (
+                                                        <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
+                                                            {sub.name}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
 
                                     {/* Exterior Section */}
                                     <h3 className="font-semibold text-gray-900 text-base px-3 py-2 pt-3">Exterior</h3>
-                                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors">
-                                        Exterior Home Care
+                                    <div
+                                        className="relative"
+                                        onMouseEnter={() => setHoveredService(3)}
+                                        onMouseLeave={() => setHoveredService(null)}
+                                    >
+                                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
+                                        <span className="text-[#00CD49]">Exterior Home Care</span>
+                                        <ChevronRight className="w-4 h-4 text-[#00CD49]" />
                                     </button>
-                                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors">
-                                        Landscaping & Outdoor Services
-                                    </button>
+                                    {hoveredService === 3 && (
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                                <div className="p-2">
+                                                    {services[3].subServices[0].subServices.map((sub, idx) => (
+                                                        <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
+                                                            {sub.name}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div
+                                        className="relative"
+                                        onMouseEnter={() => setHoveredService(4)}
+                                        onMouseLeave={() => setHoveredService(null)}
+                                    >
+                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
+                                            <span className="text-[#00CD49]">Landscaping & Outdoor Services</span>
+                                            <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                        </button>
+                                        {hoveredService === 4 && (
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                                <div className="p-2">
+                                                    {services[3].subServices[1].subServices.map((sub, idx) => (
+                                                        <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
+                                                            {sub.name}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
 
                                     {/* More Services Section */}
                                     <h3 className="font-semibold text-gray-900 text-base px-3 py-2 pt-3">More Services</h3>
-                                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors">
-                                        Moving
-                                    </button>
-                                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors">
-                                        Installation & Assembly
-                                    </button>
+                                    <div
+                                        className="relative"
+                                        onMouseEnter={() => setHoveredService(5)}
+                                        onMouseLeave={() => setHoveredService(null)}
+                                    >
+                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
+                                            <span className="text-[#00CD49]">Moving</span>
+                                            <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                        </button>
+                                        {hoveredService === 5 && (
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                                <div className="p-2">
+                                                    {services[4].subServices[0].subServices.map((sub, idx) => (
+                                                        <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
+                                                            {sub.name}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div
+                                        className="relative"
+                                        onMouseEnter={() => setHoveredService(6)}
+                                        onMouseLeave={() => setHoveredService(null)}
+                                    >
+                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
+                                            <span className="text-[#00CD49]">Installation & Assembly</span>
+                                            <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                        </button>
+                                        {hoveredService === 6 && (
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                                <div className="p-2">
+                                                    {services[4].subServices[1].subServices.map((sub, idx) => (
+                                                        <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
+                                                            {sub.name}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
 
                                     {/* House Painter Section */}
                                     <h3 className="font-semibold text-gray-900 text-base px-3 py-2 pt-3">House Painter</h3>
@@ -277,7 +466,7 @@ export default function Navbar() {
                             {isUserMenuOpen && (
                                 <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                                     <div className="py-2">
-                                        <Link href="/profile">
+                                        <Link href="/userProfile">
                                             <button
                                                 onClick={() => setIsUserMenuOpen(false)}
                                                 className="w-full text-left px-4 py-2 hover:bg-teal-50 text-sm text-gray-700 hover:text-teal-600 flex items-center gap-2"
@@ -354,17 +543,28 @@ export default function Navbar() {
             {isMobileMenuOpen && (
                 <div className="md:hidden bg-white border-t border-gray-200">
                     <div className="px-4 py-4 space-y-3">
-                        <Button
-                            onClick={() => {
-                                setIsMobileMenuOpen(false);
-                                if (isHomePage && !isAuthenticated) {
-                                    openModal();
-                                }
-                            }}
-                            className="w-full bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-sm px-4 rounded-md border border-teal-600"
-                        >
-                            Home
-                        </Button>
+                        {isAuthenticated ? (
+                            <Link href="/" passHref>
+                                <Button
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="w-full bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-sm px-4 rounded-md border border-teal-600"
+                                >
+                                    Home
+                                </Button>
+                            </Link>
+                        ) : (
+                            <Button
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    if (isHomePage && !isAuthenticated) {
+                                        openModal();
+                                    }
+                                }}
+                                className="w-full bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-sm px-4 rounded-md border border-teal-600"
+                            >
+                                Home
+                            </Button>
+                        )}
 
                         {isAuthenticated && (
                             <Button

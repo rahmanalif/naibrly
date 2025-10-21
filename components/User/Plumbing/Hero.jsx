@@ -1,16 +1,14 @@
 'use client';
 
-import { MapPin } from 'lucide-react';
+import { Link as LinkIcon, MapPin } from 'lucide-react';
+import Link from 'next/link'; // Make sure to import Next.js Link
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
+import React from 'react';
 
 export default function PlumberFinder() {
   const [zipCode, setZipCode] = useState('51502');
-
-  const handleClick = () => {
-    console.log('Finding plumbers for:', zipCode);
-  };
 
   return (
     <div className="bg-white px-4 py-12 md:py-0.5">
@@ -39,12 +37,13 @@ export default function PlumberFinder() {
                   className="pl-12 h-12 text-lg border-gray-300 focus:border-teal-600 focus:ring-teal-600"
                 />
               </div>
-              <Button
-                onClick={handleClick}
-                className="w-full h-12 bg-[#0E7A60] hover:bg-[#076650] text-white text-lg font-medium rounded-lg transition-colors"
-              >
-                Find your area
-              </Button>
+              <Link href="/Plumber-list">
+                <Button
+                  className="w-full h-12 bg-[#0E7A60] hover:bg-[#076650] text-white text-lg font-medium rounded-lg transition-colors"
+                >
+                  Find your area
+                </Button>
+              </Link>
             </div>
           </div>
 

@@ -1,5 +1,5 @@
-import Hero from '@/components/User/Naibrly-landingPage/Hero';
-import Provider from '@/components/User/Naibrly-landingPage/Provider';
+import Hero from '@/components/User/Plumber-list/Hero';
+import Provider from '@/components/User/Plumber-list/Provider';
 
 export default function LandingPage() {
   return (
