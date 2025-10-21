@@ -35,9 +35,9 @@ export default function HowNaibrlyDifferent() {
     ];
 
     return (
-        <div className="w-full bg-white py-16 px-4">
+        <div className="w-full bg-white ">
             <div className="max-w-6xl mx-auto">
-                <h1 className="text-4xl font-bold text-center mb-12 text-gray-900">How to Naibrly is different:</h1>
+                <h1 className="text-4xl font-normal text-center mb-16 text-black font-inter not-italic leading-normal">How to Naibrly is different:</h1>
 
                 <div className="overflow-x-auto">
                     <table className="w-full">

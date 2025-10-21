@@ -2,9 +2,9 @@ import { Search, ChevronDown, ArrowLeft } from 'lucide-react';
 
 export default function HowNaibrlyWorks() {
   return (
-    <div className="w-full bg-white py-16 px-4">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-16 text-gray-900">How to Naibrly Work:</h1>
+    <div className="w-full bg-white py-6 px-4">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-4xl font-normal text-center mb-16 text-black font-inter not-italic leading-normal">How to Naibrly Work:</h1>
         
         <div className="grid md:grid-cols-3 gap-8">
           {/* Card 1 - Find Services */}

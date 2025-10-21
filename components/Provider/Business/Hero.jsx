@@ -5,27 +5,18 @@ import Image from 'next/image';
 
 export default function RestonSection() {
   return (
-    <div className="w-full bg-white py-16 px-4 sm:px-6 lg:px-8">
+    <div className="w-full bg-white py-6 px-2 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Icon circles */}
         <div className="flex justify-center items-center gap-6 mb-12">
-          <div className="relative w-32 h-32">
-            <Image src="/provider/Ellipse 3.svg" alt="background" fill style={{objectFit: "cover"}} />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Image src="/provider/Hammer.png" alt="Hammer" width={64} height={64} />
-            </div>
+          <div className="relative w-100 h-100">
+            <Image src="/provider/design  (3).png" alt="background" fill style={{objectFit: "cover"}} />
           </div>
-          <div className="relative w-32 h-32">
-            <Image src="/provider/Ellipse 3 (1).svg" alt="background" fill style={{objectFit: "cover"}} />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Image src="/provider/Paint.png" alt="Paint" width={64} height={64} />
-            </div>
+          <div className="relative w-100 h-100">
+            <Image src="/provider/design  (2).png" alt="background" fill style={{objectFit: "cover"}} />
           </div>
-          <div className="relative w-32 h-32">
-            <Image src="/provider/Ellipse 4.svg" alt="background" fill style={{objectFit: "cover"}} />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Image src="/provider/Sessor.png" alt="Sessor" width={64} height={64} />
-            </div>
+          <div className="relative w-100 h-100">
+            <Image src="/provider/design  (1).png" alt="background" fill style={{objectFit: "cover"}} />
           </div>
         </div>
 

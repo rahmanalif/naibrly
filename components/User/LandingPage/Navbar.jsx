@@ -47,6 +47,7 @@ export default function Navbar() {
     const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const pathname = usePathname();
 
     // Get authentication state (now using Redux under the hood)
@@ -90,6 +91,11 @@ export default function Navbar() {
             document.body.style.overflow = 'unset';
         };
     }, [isMobileMenuOpen]);
+
+    // Set mounted after component mounts to prevent hydration mismatch
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const services = [
         {
@@ -206,20 +212,22 @@ export default function Navbar() {
     );
 
     return (
-        <nav className="sticky top-0 bg-white border-b border-gray-200 z-[100] shadow-sm">
+        <nav className="sticky    top-0 bg-white border-b border-gray-200 z-[100] shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-                <div className="inline-flex items-center gap-1">
+               <Link href="/" className='cursor-pointer'>
+                 <div className="inline-flex  items-center gap-1">
                     <Image
                         src="/logo.png"
                         alt="Naibrly Logo"
                         width={36}
                         height={36}
-                        className="aspect-square bg-[url('/logo.png')] bg-lightgray bg-cover bg-center bg-no-repeat"
+                        className="aspect-square bg-white bg-[url('/logo.png')] bg-lightgray bg-cover bg-center bg-no-repeat"
                     />
                     <span className="text-[#333] font-inter text-base sm:text-xl md:text-[24px] font-bold leading-[24px] uppercase" style={{ fontFeatureSettings: "'ss01' on, 'cv01' on" }}>
                         Naibrly
                     </span>
                 </div>
+               </Link>
 
                 {/* Mobile Menu Button */}
                 <button
@@ -231,8 +239,8 @@ export default function Navbar() {
 
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex gap-2 sm:gap-4 items-center">
-                    {isAuthenticated ? (
-                        <Link href="/">
+                    {mounted && (isAuthenticated ? (
+                        <Link href="/#">
                             <Button className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600">
                                 Home
                             </Button>
@@ -249,7 +257,7 @@ export default function Navbar() {
                         >
                             Home
                         </Button>
-                    )}
+                    ))}
 
                     {/* Show "Naibrly Bundle Offer" button only when authenticated */}
                     {isAuthenticated && (
