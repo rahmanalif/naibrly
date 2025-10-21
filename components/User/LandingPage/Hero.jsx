@@ -5,10 +5,10 @@ import Image from 'next/image';
 import { Search, MapPin, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function HeroSection() {
-    // Get authentication state
+    // Get authentication state (now using Redux under the hood)
     const { isAuthenticated, user } = useAuth();
 
     const HouseCleaningIcon = () => (

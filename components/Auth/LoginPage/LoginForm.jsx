@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Lock, Mail } from 'lucide-react';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -33,7 +33,7 @@ export default function LoginForm() {
         role: 'user'
       };
 
-      // Call the login function from AuthContext
+      // Call the login function (uses Redux under the hood)
       login(mockUser);
 
       setIsLoading(false);

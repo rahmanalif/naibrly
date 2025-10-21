@@ -9,7 +9,7 @@ import SignInModal from '@/components/User/Modals/WithoutSignUpModal';
 import BundleOfferModal from '@/components/User/Modals/BundleOfferModal';
 import NotificationModal from '@/components/User/Modals/NotificationModal';
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 
 const SubMenuItem = ({ item }) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -49,7 +49,7 @@ export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
 
-    // Get authentication state
+    // Get authentication state (now using Redux under the hood)
     const { isAuthenticated, user, logout } = useAuth();
 
     const isHomePage = pathname === '/' || pathname === '/login' || pathname === '/signup';
@@ -57,7 +57,39 @@ export default function Navbar() {
     // Close modal when pathname changes (user navigates to different page)
     useEffect(() => {
         setIsModalOpen(false);
+        setIsServiceOpen(false);
+        setIsUserMenuOpen(false);
+        setIsMobileMenuOpen(false);
     }, [pathname]);
+
+    // Close dropdowns when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            // Close service dropdown if clicked outside
+            if (isServiceOpen && !event.target.closest('.service-dropdown-container')) {
+                setIsServiceOpen(false);
+            }
+            // Close user menu if clicked outside
+            if (isUserMenuOpen && !event.target.closest('.user-menu-container')) {
+                setIsUserMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isServiceOpen, isUserMenuOpen]);
+
+    // Prevent body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isMobileMenuOpen]);
 
     const services = [
         {
@@ -174,7 +206,7 @@ export default function Navbar() {
     );
 
     return (
-        <div className="bg-white border-b border-gray-200">
+        <nav className="sticky top-0 bg-white border-b border-gray-200 z-[100] shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
                 <div className="inline-flex items-center gap-1">
                     <Image
@@ -198,7 +230,7 @@ export default function Navbar() {
                 </button>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden md:flex gap-2 sm:gap-4 items-center">
+                <div className="hidden md:flex gap-2 sm:gap-4 items-center">
                     {isAuthenticated ? (
                         <Link href="/">
                             <Button className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600">
@@ -229,7 +261,7 @@ export default function Navbar() {
                         </Button>
                     )}
 
-                    <div className="relative">
+                    <div className="relative service-dropdown-container">
                         <Button
                             variant="outline"
                             className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600"
@@ -250,7 +282,7 @@ export default function Navbar() {
 
                         {isServiceOpen && isAuthenticated && (
                             <div
-                                className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-50"
+                                className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-[110]"
                                 onMouseLeave={() => setIsServiceOpen(false)}
                             >
                                 <div className="p-3 space-y-1">
@@ -266,7 +298,7 @@ export default function Navbar() {
                                             <ChevronRight className="w-4 h-4 text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 0 && (
-                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
                                                 <div className="p-2">
                                                     {services[0].subServices.map((sub, idx) => (
                                                         sub.path ? (
@@ -295,7 +327,7 @@ export default function Navbar() {
                                             <ChevronRight className="w-4 h-4 text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 1 && (
-                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
                                                 <div className="p-2">
                                                     {services[1].subServices.map((sub, idx) => (
                                                         <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
@@ -316,7 +348,7 @@ export default function Navbar() {
                                             <ChevronRight className="w-4 h-4 text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 2 && (
-                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
                                                 <div className="p-2">
                                                     {services[2].subServices.map((sub, idx) => (
                                                         <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
@@ -340,7 +372,7 @@ export default function Navbar() {
                                         <ChevronRight className="w-4 h-4 text-[#00CD49]" />
                                     </button>
                                     {hoveredService === 3 && (
-                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
                                                 <div className="p-2">
                                                     {services[3].subServices[0].subServices.map((sub, idx) => (
                                                         <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
@@ -361,7 +393,7 @@ export default function Navbar() {
                                             <ChevronRight className="w-4 h-4 text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 4 && (
-                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
                                                 <div className="p-2">
                                                     {services[3].subServices[1].subServices.map((sub, idx) => (
                                                         <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
@@ -385,7 +417,7 @@ export default function Navbar() {
                                             <ChevronRight className="w-4 h-4 text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 5 && (
-                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
                                                 <div className="p-2">
                                                     {services[4].subServices[0].subServices.map((sub, idx) => (
                                                         <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
@@ -406,7 +438,7 @@ export default function Navbar() {
                                             <ChevronRight className="w-4 h-4 text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 6 && (
-                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[60]">
+                                            <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
                                                 <div className="p-2">
                                                     {services[4].subServices[1].subServices.map((sub, idx) => (
                                                         <button key={idx} className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900">
@@ -449,7 +481,7 @@ export default function Navbar() {
                     {/* Authentication Section - Shows different UI based on login state */}
                     {isAuthenticated ? (
                         // LOGGED IN STATE - Show user profile and menu
-                        <div className="relative">
+                        <div className="relative user-menu-container">
                             <button
                                 className="rounded-full border-2 border-teal-600 hover:border-teal-700 transition-colors p-0"
                                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
@@ -464,7 +496,7 @@ export default function Navbar() {
                             </button>
 
                             {isUserMenuOpen && (
-                                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-[110]">
                                     <div className="py-2">
                                         <Link href="/userProfile">
                                             <button
@@ -503,7 +535,7 @@ export default function Navbar() {
                                     <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 ml-1 transition-transform ${isServiceOpen ? 'rotate-180' : ''}`} />
                                 </Button>
                                 {isServiceOpen && (
-                                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-[110]">
                                         <div className="py-2">
                                             <Link href="/Login">
                                                 <button
@@ -536,12 +568,12 @@ export default function Navbar() {
                             </Link>
                         )
                     )}
-                </nav>
+                </div>
             </div>
 
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
-                <div className="md:hidden bg-white border-t border-gray-200">
+                <div className="md:hidden bg-white border-t border-gray-200 absolute top-full left-0 right-0 max-h-[calc(100vh-80px)] overflow-y-auto shadow-lg">
                     <div className="px-4 py-4 space-y-3">
                         {isAuthenticated ? (
                             <Link href="/" passHref>
@@ -689,6 +721,6 @@ export default function Navbar() {
                 isOpen={isNotificationModalOpen}
                 onClose={() => setIsNotificationModalOpen(false)}
             />
-        </div>
+        </nav>
     );
 }

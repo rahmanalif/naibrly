@@ -1,14 +1,13 @@
 'use client';
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Camera, Edit2 } from 'lucide-react';
+import { Edit2 } from 'lucide-react';
 
-export default function EditProfileModal() {
-  const [open, setOpen] = useState(false);
+export default function EditProfileModal({ isOpen, onClose }) {
   const [profileImage, setProfileImage] = useState('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop');
   const [formData, setFormData] = useState({
     name: 'Jane Doe',
@@ -36,19 +35,15 @@ export default function EditProfileModal() {
 
   const handleSave = () => {
     console.log('Saving profile:', formData);
-    setOpen(false);
+    onClose();
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button className="bg-teal-600 hover:bg-teal-700">
-          Open Edit Profile
-        </Button>
-      </DialogTrigger>
-
-      <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto bg-white rounded-2xl p-0">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Edit Profile</DialogTitle>
+          </DialogHeader>
           <div className="p-6 pb-8">
             {/* Profile Image Section */}
             <div className="flex flex-col items-center mb-6">
@@ -185,7 +180,6 @@ export default function EditProfileModal() {
             </Button>
           </div>
         </DialogContent>
-      </Dialog>
     </Dialog>
   );
 }

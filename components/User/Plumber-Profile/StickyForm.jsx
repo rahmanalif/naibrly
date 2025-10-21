@@ -4,6 +4,8 @@ import { Card } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import RequestEstimateModal from './RequestEstimateModal';
+import SuccessModal from './SuccessModal';
 
 export default function StickyForm() {
 
@@ -13,15 +15,32 @@ export default function StickyForm() {
     const [urgency, setUrgency] = useState('');
     const [numDrains, setNumDrains] = useState('');
 
+    const [showEstimateModal, setShowEstimateModal] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+
     const handleRequestEstimate = () => {
+        // Validate that all fields are filled
         if (!selectedService || !zipCode || !drainProblem || !urgency || !numDrains) {
-            alert('Please fill in all fields');
+            alert('Please fill in all fields before requesting an estimate');
             return;
         }
+        // Open the estimate modal
+        setShowEstimateModal(true);
+    };
+
+    const handleEstimateSuccess = () => {
+        setShowEstimateModal(false);
+        setShowSuccessModal(true);
+    };
+
+    const handleCloseModals = () => {
+        setShowEstimateModal(false);
+        setShowSuccessModal(false);
     };
 
     return (
-        <div className="lg:col-span-1 sticky top-20 z-50">
+        <div className="lg:col-span-1">
+            <div className="sticky top-4 z-50">
             <Card className="p-6 shadow-md">
                 <div className="flex items-center mb-6">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -132,6 +151,19 @@ export default function StickyForm() {
                     </div>
                 </div>
             </Card>
+            </div>
+
+            {/* Modals */}
+            <RequestEstimateModal
+                isOpen={showEstimateModal}
+                onClose={handleCloseModals}
+                onSuccess={handleEstimateSuccess}
+                serviceName="Plumbing Drain Repair"
+            />
+            <SuccessModal
+                isOpen={showSuccessModal}
+                onClose={handleCloseModals}
+            />
         </div>
     )
 

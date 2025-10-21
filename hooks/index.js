@@ -3,7 +3,7 @@
  * Central export point for all custom React hooks
  */
 
-export { useAuth as default } from '@/context/AuthContext';
+export { useAuth as default } from './useAuth';
 
 // Add more hooks exports here as you create them
 // Example:
