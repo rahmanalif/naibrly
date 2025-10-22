@@ -14,7 +14,7 @@ export default function NaibrlyLanding() {
               className="w-auto h-64 sm:h-80 md:h-96 lg:h-[550px] xl:h-[650px] object-contain"
             />
           </div>
-
+          {/* some change */}
           {/* Right side - Text content */}
           <div className="flex flex-col justify-center text-center md:text-left order-1 md:order-2 px-2">
             <div className="mb-6 sm:mb-8">
