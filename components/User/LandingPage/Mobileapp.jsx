@@ -11,7 +11,7 @@ export default function NaibrlyLanding() {
             <img
               src="/Mobile.png"
               alt="Naibrly Mobile App"
-              className="w-auto h-64 sm:h-80 md:h-96 lg:h-[550px] xl:h-[650px] object-contain"
+              className="w-auto h-64 sm:h-80 md:h-98 lg:h-[550px] xl:h-[650px] object-contain relative top-16"
             />
           </div>
 
@@ -28,16 +28,20 @@ export default function NaibrlyLanding() {
 
             {/* App store buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center md:items-start justify-center md:justify-start">
-              <img
-                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                alt="Download on the App Store"
-                className="h-10 sm:h-12 md:h-14 w-auto"
-              />
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                alt="Get it on Google Play"
-                className="h-10 sm:h-12 md:h-14 w-auto"
-              />
+              <button className="transition-transform hover:scale-105 active:scale-95">
+                <img
+                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                  alt="Download on the App Store"
+                  className="h-10 sm:h-12 md:h-14 w-auto"
+                />
+              </button>
+              <button className="transition-transform hover:scale-105 active:scale-95">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                  alt="Get it on Google Play"
+                  className="h-10 sm:h-12 md:h-14 w-auto"
+                />
+              </button>
             </div>
           </div>
         </div>

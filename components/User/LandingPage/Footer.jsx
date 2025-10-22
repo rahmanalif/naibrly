@@ -1,112 +1,127 @@
-'use Client';
+'use client';
 
+import React from 'react';
 import Image from 'next/image';
+import { Youtube, Instagram, Facebook, Twitter, Mail } from 'lucide-react';
 
-import { Mail, Phone, MapPin } from 'lucide-react';
-
-export default function Footer() {
+export default function NaibrlyFooter() {
   return (
-    <footer className="bg-white border-t border-gray-200">
-      {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Brand Section */}
-          <div className="flex flex-col">
-            <div className="flex items-center ">
-              <h3 className="font-bold text-lg">Naibrly</h3>
+    <footer className="bg-[#0a4d3c] text-white py-12 px-8 lg:px-16">
+      <div className="max-w-7xl mx-auto">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-8">
+          {/* Left Column - Brand */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                <Image
+                  src="/logo.png"
+                  alt="Naibrly Logo"
+                  width={24}
+                  height={24}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-2xl font-bold">NAIBRLY</h3>
             </div>
-            <p className="font-medium mb-4">Consider it done.</p>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-gray-600">
+            <p className="text-gray-300 leading-relaxed max-w-md">
+              Naibrly is your premier destination for top-notch smart home service and repair.
+            </p>
+
+            {/* Social Icons */}
+            <div className="flex gap-4 pt-2">
+              <a
+                href="#"
+                className="hover:text-gray-300 transition-colors"
+                aria-label="YouTube"
+              >
+                <Youtube className="w-5 h-5" />
+              </a>
+              <a
+                href="#"
+                className="hover:text-gray-300 transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href="#"
+                className="hover:text-gray-300 transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="#"
+                className="hover:text-gray-300 transition-colors"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a
+                href="#"
+                className="hover:text-gray-300 transition-colors"
+                aria-label="Email"
+              >
                 <Mail className="w-5 h-5" />
-                <span className="text-sm">Naibrly****@gmail.com</span>
-              </div>
-              <div className="flex items-center gap-3 text-gray-600">
-                <Phone className="w-5 h-5" />
-                <span className="text-sm">(+888) 000 00000</span>
-              </div>
+              </a>
             </div>
           </div>
 
-          {/* Customers Column */}
-          <div>
-            <h4 className="font-bold text-gray-900 mb-6">Customers</h4>
-            <ul className="space-y-4">
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Sign up
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Get the app
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Service
-                </a>
-              </li>
-            </ul>
-          </div>
+          {/* Right Side - Company and Legal Columns */}
+          <div className="lg:col-span-7 grid grid-cols-2 gap-4 lg:gap-4 lg:justify-items-end">
+            {/* Company Column */}
+            <div>
+              <h4 className="text-xl font-bold mb-6">Company</h4>
+              <ul className="space-y-4">
+                <li>
+                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                    About us
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                    Services
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-          {/* Pros Column */}
-          <div>
-            <h4 className="font-bold text-gray-900 mb-6">Pros</h4>
-            <ul className="space-y-4">
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Naibrly for pros
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Sign up as a pro
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Community
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Help & Support Column */}
-          <div>
-            <h4 className="font-bold text-gray-900 mb-6">Help & support</h4>
-            <ul className="space-y-4">
-              <li>
-                <a href="/support" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Support
-                </a>
-              </li>
-              <li>
-                <a href="/terms-of-use" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Terms of Use
-                </a>
-              </li>
-              <li>
-                <a href="privacy-policy" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Privacy Policy
-                </a>
-              </li>
-            </ul>
+            {/* Legal Column */}
+            <div>
+              <h4 className="text-xl font-bold mb-6">Legal</h4>
+              <ul className="space-y-4">
+                <li>
+                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                    Terms
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                    Privacy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                    License
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Footer */}
-        <div className="border-t border-gray-200 pt-8 flex flex-col md:flex-row items-center justify-between">
-          <div className="flex items-center gap-2 mb-6 md:mb-0">
-            <Image src="/logo.png" alt="Naibrly Logo" width={24} height={24} />
-            <span className="text-gray-600 text-sm">© 2025 Naibrly, Inc.</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full flex items-center justify-center">
-              <Image src="/logo.png" alt="Naibrly Logo" width={24} height={24} />
-            </div>
-            <span className="font-bold text-lg text-gray-900">Naibrly</span>
-          </div>
+        {/* Divider */}
+        <div className="border-t border-teal-700/40 my-8"></div>
+
+        {/* Bottom Copyright */}
+        <div className="text-center text-gray-400">
+          <p>©2025 Naibrly . All rights reserved</p>
         </div>
       </div>
     </footer>
