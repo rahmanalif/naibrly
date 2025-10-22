@@ -24,7 +24,8 @@
       "Bash(npm install @radix-ui/react-dialog)",
       "Bash(taskkill //F //PID 15812)",
       "Bash(timeout 10)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []

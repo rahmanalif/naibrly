@@ -1,25 +1,37 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Lock, Mail } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
-export default function LoginForm() {
+function LoginFormContent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [userType, setUserType] = useState('user'); // Default to 'user'
 
   const { login } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Get user type from URL query parameter
+  useEffect(() => {
+    const type = searchParams.get('type');
+    if (type === 'provider' || type === 'user') {
+      setUserType(type);
+    }
+  }, [searchParams]);
 
   const handleLogin = (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+    console.log('LoginForm - Starting login with userType:', userType);
 
     // Since you don't have a backend yet, this is a mock login
     // Replace this with your actual API call when you have a backend
@@ -30,16 +42,24 @@ export default function LoginForm() {
         name: email.split('@')[0], // Use email prefix as name for demo
         email: email,
         profileImage: null,
-        role: 'user'
+        role: userType // Set role based on selected user type
       };
 
-      // Call the login function (uses Redux under the hood)
-      login(mockUser);
+      console.log('LoginForm - Calling login with:', { user: mockUser, userType });
+
+      // Call the login function with user data and userType (uses Redux under the hood)
+      login({ user: mockUser, userType });
 
       setIsLoading(false);
 
-      // Redirect to home page
-      router.push('/');
+      // Redirect based on user type
+      if (userType === 'provider') {
+        console.log('LoginForm - Redirecting to /business');
+        router.push('/business'); // Redirect to business page for providers
+      } else {
+        console.log('LoginForm - Redirecting to /');
+        router.push('/'); // Redirect to home page for users
+      }
     }, 1000); // Simulate network delay
   };
 
@@ -47,11 +67,18 @@ export default function LoginForm() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-sm p-8">
         {/* Header */}
-        <h1 className="text-2xl text-slate-800 text-center mb-8 font-light">
+        <h1 className="text-2xl text-slate-800 text-center mb-4 font-light">
           Sign in below and see how we can
           <br />
           save you time and money.
         </h1>
+
+        {/* User Type Indicator */}
+        <div className="flex justify-center mb-6">
+          <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-teal-100 text-teal-800">
+            Logging in as: <span className="ml-1 font-bold capitalize">{userType}</span>
+          </span>
+        </div>
 
         <form onSubmit={handleLogin}>
 
@@ -167,5 +194,20 @@ export default function LoginForm() {
         </p> */}
       </div>
     </div>
+  );
+}
+
+// Wrapper component with Suspense boundary
+export default function LoginForm() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
+        <div className="w-full max-w-md bg-white rounded-lg shadow-sm p-8">
+          <div className="text-center text-slate-600">Loading...</div>
+        </div>
+      </div>
+    }>
+      <LoginFormContent />
+    </Suspense>
   );
 }

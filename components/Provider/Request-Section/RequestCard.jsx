@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { MapPin, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import CancelModal from './CancelModal';
 
 const RequestCard = ({ request }) => {
   const {
@@ -15,6 +16,17 @@ const RequestCard = ({ request }) => {
     priceRange,
     status = 'pending'
   } = request;
+
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+
+  const handleCancelClick = () => {
+    setIsCancelModalOpen(true);
+  };
+
+  const handleCancelConfirm = (note) => {
+    console.log('Order cancelled with note:', note);
+    // Handle the cancel logic here (e.g., API call)
+  };
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow">
@@ -71,6 +83,7 @@ const RequestCard = ({ request }) => {
                   </Button>
                   <Button
                     variant="ghost"
+                    onClick={handleCancelClick}
                     className="text-red-500 hover:text-red-600 hover:bg-red-50 text-sm px-4"
                   >
                     • Cancel
@@ -103,6 +116,13 @@ const RequestCard = ({ request }) => {
           </div>
         </div>
       </div>
+
+      {/* Cancel Modal */}
+      <CancelModal
+        isOpen={isCancelModalOpen}
+        onClose={() => setIsCancelModalOpen(false)}
+        onConfirm={handleCancelConfirm}
+      />
     </div>
   );
 };

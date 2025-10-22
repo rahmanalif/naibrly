@@ -9,11 +9,12 @@ import { login, logout, updateUser } from '@/redux/slices/authSlice';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-  const { isAuthenticated, user, isLoading } = useAppSelector((state) => state.auth);
+  const { isAuthenticated, user, userType, isLoading } = useAppSelector((state) => state.auth);
 
   return {
     isAuthenticated,
     user,
+    userType,
     isLoading,
     login: (userData) => dispatch(login(userData)),
     logout: () => dispatch(logout()),

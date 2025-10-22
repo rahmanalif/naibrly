@@ -47,6 +47,7 @@ export default function Navbar() {
     const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isSignInMenuOpen, setIsSignInMenuOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
     const pathname = usePathname();
 
@@ -61,6 +62,7 @@ export default function Navbar() {
         setIsServiceOpen(false);
         setIsUserMenuOpen(false);
         setIsMobileMenuOpen(false);
+        setIsSignInMenuOpen(false);
     }, [pathname]);
 
     // Close dropdowns when clicking outside
@@ -74,11 +76,15 @@ export default function Navbar() {
             if (isUserMenuOpen && !event.target.closest('.user-menu-container')) {
                 setIsUserMenuOpen(false);
             }
+            // Close sign-in menu if clicked outside
+            if (isSignInMenuOpen && !event.target.closest('.signin-menu-container')) {
+                setIsSignInMenuOpen(false);
+            }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isServiceOpen, isUserMenuOpen]);
+    }, [isServiceOpen, isUserMenuOpen, isSignInMenuOpen]);
 
     // Prevent body scroll when mobile menu is open
     useEffect(() => {
@@ -532,30 +538,30 @@ export default function Navbar() {
                     ) : (
                         // NOT LOGGED IN STATE - Show sign in button
                         isHomePage ? (
-                            <div className="relative">
+                            <div className="relative signin-menu-container">
                                 <Button
                                     variant="outline"
                                     className="border-teal-600 text-teal-600 hover:bg-teal-50 flex items-center text-xs sm:text-sm px-3 sm:px-4 rounded-md"
-                                    onClick={() => setIsServiceOpen(!isServiceOpen)}
+                                    onClick={() => setIsSignInMenuOpen(!isSignInMenuOpen)}
                                 >
                                     <span className="hidden sm:inline">Sign in</span>
                                     <span className="sm:hidden">Login</span>
-                                    <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 ml-1 transition-transform ${isServiceOpen ? 'rotate-180' : ''}`} />
+                                    <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 ml-1 transition-transform ${isSignInMenuOpen ? 'rotate-180' : ''}`} />
                                 </Button>
-                                {isServiceOpen && (
+                                {isSignInMenuOpen && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-[110]">
                                         <div className="py-2">
-                                            <Link href="/Login">
+                                            <Link href="/Login?type=user">
                                                 <button
-                                                    onClick={() => setIsServiceOpen(false)}
+                                                    onClick={() => setIsSignInMenuOpen(false)}
                                                     className="w-full text-left px-4 py-2 border-b hover:bg-teal-50 text-sm text-gray-700 hover:text-teal-600"
                                                 >
                                                     User
                                                 </button>
                                             </Link>
-                                            <Link href="/Login">
+                                            <Link href="/Login?type=provider">
                                                 <button
-                                                    onClick={() => setIsServiceOpen(false)}
+                                                    onClick={() => setIsSignInMenuOpen(false)}
                                                     className="w-full text-left px-4 py-2 hover:bg-teal-50 text-sm text-gray-700 hover:text-teal-600"
                                                 >
                                                     Provider
@@ -682,7 +688,7 @@ export default function Navbar() {
                         ) : (
                             isHomePage ? (
                                 <div className="border-t pt-3 space-y-2">
-                                    <Link href="/Login" className="block">
+                                    <Link href="/Login?type=user" className="block">
                                         <button
                                             onClick={() => setIsMobileMenuOpen(false)}
                                             className="w-full text-left px-4 py-2 hover:bg-teal-50 text-sm text-gray-700 hover:text-teal-600 rounded-md"
@@ -690,7 +696,7 @@ export default function Navbar() {
                                             Sign in as User
                                         </button>
                                     </Link>
-                                    <Link href="/Login" className="block">
+                                    <Link href="/Login?type=provider" className="block">
                                         <button
                                             onClick={() => setIsMobileMenuOpen(false)}
                                             className="w-full text-left px-4 py-2 hover:bg-teal-50 text-sm text-gray-700 hover:text-teal-600 rounded-md"

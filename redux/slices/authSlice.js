@@ -6,17 +6,20 @@ const getInitialState = () => {
     return {
       isAuthenticated: false,
       user: null,
+      userType: null,
       isLoading: false,
     };
   }
 
   try {
     const storedUser = localStorage.getItem('user');
+    const storedUserType = localStorage.getItem('userType');
     if (storedUser) {
       const userData = JSON.parse(storedUser);
       return {
         isAuthenticated: true,
         user: userData,
+        userType: storedUserType || userData.userType || null,
         isLoading: false,
       };
     }
@@ -27,6 +30,7 @@ const getInitialState = () => {
   return {
     isAuthenticated: false,
     user: null,
+    userType: null, // 'user' or 'provider'
     isLoading: false,
   };
 };
@@ -36,19 +40,23 @@ const authSlice = createSlice({
   initialState: getInitialState(),
   reducers: {
     login: (state, action) => {
-      state.user = action.payload;
+      state.user = action.payload.user || action.payload;
+      state.userType = action.payload.userType || action.payload.user?.userType || 'user';
       state.isAuthenticated = true;
       // Save to localStorage
       if (typeof window !== 'undefined') {
-        localStorage.setItem('user', JSON.stringify(action.payload));
+        localStorage.setItem('user', JSON.stringify(state.user));
+        localStorage.setItem('userType', state.userType);
       }
     },
     logout: (state) => {
       state.user = null;
+      state.userType = null;
       state.isAuthenticated = false;
       // Remove from localStorage
       if (typeof window !== 'undefined') {
         localStorage.removeItem('user');
+        localStorage.removeItem('userType');
       }
     },
     updateUser: (state, action) => {
@@ -65,9 +73,11 @@ const authSlice = createSlice({
       if (typeof window !== 'undefined') {
         try {
           const storedUser = localStorage.getItem('user');
+          const storedUserType = localStorage.getItem('userType');
           if (storedUser) {
             const userData = JSON.parse(storedUser);
             state.user = userData;
+            state.userType = storedUserType || userData.userType || 'user';
             state.isAuthenticated = true;
           }
         } catch (error) {

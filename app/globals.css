@@ -1,8 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
+ 
 @custom-variant dark (&:is(.dark *));
-
+ 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -42,7 +42,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
-
+ 
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -77,7 +77,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 }
-
+ 
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -111,17 +111,100 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
-
+ 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-
+ 
   html {
     scroll-behavior: smooth;
   }
-
+ 
   body {
     @apply bg-background text-foreground;
   }
 }
+ 
+ 
+/* this is for message part in this project */
+.message_layout {
+  border-radius: 24px;
+  background: rgba(224, 224, 224, 0.50);
+}
+ 
+/* other message */
+.other_message {
+  display: flex;
+  padding: 10px;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-radius: 12px 12px 12px 0;
+  background: var(--Primary, #0E7A60);
+  color: #FFF;
+  font-size: 14px;
+}
+ 
+/* our message */
+.our_message {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  gap: 38px;
+  border-radius: 12px 12px 12px 0;
+  background: var(--black-white-white, #FFF);
+  color: black;
+  font-size: 14px;
+}
+ 
+/* this is for user icon */
+.user_icon {
+  width: 40px;
+  height: 40px;
+  aspect-ratio: 1/1;
+  border-radius: 40px;
+}
+ 
+/* this is for message input */
+.message_input {
+  display: flex;
+  width: 302px;
+  height: 48px;
+  padding: 13px 15px;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 50px;
+  background: var(--Miscellaneous-Segmented-Control---Selected-Fill, #FFF);
+}
+ 
+.message_sent_btn {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 50px;
+  background: var(--primary-secondary-dark-blue, #11293A);
+}
+ 
+/* this is for automate answare feature style*/
+.auto_message {
+  display: flex;
+  padding: 6px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid var(--Status-Yellow, #F1C400);
+  background: var(--Status-Light-Yellow, #FFF7D6);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
+}
+ 
