@@ -10,7 +10,7 @@ export default function NaibrlyLanding() {
           <div className="flex justify-center md:justify-start order-2 md:order-1">
             <img
               src="/Mobile.png"
-              alt="Naibrly Mobile App"
+              alt="Naibrly Mobile App "
               className="w-auto h-64 sm:h-80 md:h-96 lg:h-[550px] xl:h-[650px] object-contain"
             />
           </div>
