@@ -1,8 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
- 
+
 @custom-variant dark (&:is(.dark *));
- 
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -42,7 +42,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
- 
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -77,7 +77,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 }
- 
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -111,28 +111,28 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
- 
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
- 
+
   html {
     scroll-behavior: smooth;
   }
- 
+
   body {
     @apply bg-background text-foreground;
   }
 }
- 
- 
+
+
 /* this is for message part in this project */
 .message_layout {
   border-radius: 24px;
   background: rgba(224, 224, 224, 0.50);
 }
- 
+
 /* other message */
 .other_message {
   display: flex;
@@ -147,7 +147,7 @@
   color: #FFF;
   font-size: 14px;
 }
- 
+
 /* our message */
 .our_message {
   display: flex;
@@ -159,7 +159,7 @@
   color: black;
   font-size: 14px;
 }
- 
+
 /* this is for user icon */
 .user_icon {
   width: 40px;
@@ -167,7 +167,7 @@
   aspect-ratio: 1/1;
   border-radius: 40px;
 }
- 
+
 /* this is for message input */
 .message_input {
   display: flex;
@@ -180,7 +180,7 @@
   border-radius: 50px;
   background: var(--Miscellaneous-Segmented-Control---Selected-Fill, #FFF);
 }
- 
+
 .message_sent_btn {
   display: flex;
   width: 48px;
@@ -193,7 +193,7 @@
   border-radius: 50px;
   background: var(--primary-secondary-dark-blue, #11293A);
 }
- 
+
 /* this is for automate answare feature style*/
 .auto_message {
   display: flex;
@@ -207,4 +207,309 @@
   background: var(--Status-Light-Yellow, #FFF7D6);
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
 }
- 
+
+
+/* this is for user hero heading */
+.userHero_head {
+  color: var(--Text-Primary-Text, #333);
+  font-family: var(--Family-Font, Inter);
+  font-size: 38px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  width: 619px;
+}
+
+.img1 {
+  height: 296.378px;
+  align-self: stretch;
+  border-radius: 9.717px;
+}
+
+.img2 {
+  height: 224.47px;
+  align-self: stretch;
+  border-radius: 9.717px;
+}
+
+.img3 {
+  height: 554px;
+  flex-shrink: 0;
+  border-radius: 9.717px;
+}
+
+/* this is for search bar */
+.search_bar {
+  width: 100%;
+  display: flex;
+  padding: 20px 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 20px;
+  border-top: 1px solid var(--black-white-light-gray, #EBEBEB);
+  border-bottom: 1px solid var(--black-white-light-gray, #EBEBEB);
+  border-left: 1px solid var(--black-white-light-gray, #EBEBEB);
+  background: var(--Background-BG-Deshbord, #F4F7FE);
+}
+
+/* this is submit button */
+.input_submit {
+  display: flex;
+  height: 50px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 10px 4px;
+  background: var(--Primary, #0E7A60);
+}
+
+/* this is for Plumbers near you */
+.Plumbers {
+  color: #2F3033;
+
+  /* H1/48 BOLD */
+  font-family: var(--Family-Font, Inter);
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.Plumbers_text {
+  color: #676D73;
+
+  /* H4/18 REGULAR */
+  font-family: var(--Family-Font, Inter);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 27px */
+}
+
+/* Top pros for your project */
+.top_pros {
+  display: flex;
+  padding: 26px 0px 80px 0px;
+  flex-direction: column;
+  gap: 46px;
+  align-self: stretch;
+  background: linear-gradient(180deg, rgba(14, 122, 96, 0.00) 0%, rgba(14, 122, 96, 0.10) 100%);
+}
+
+.top_pros_head {
+  color: #2F3033;
+
+  /* H3/24 BOLD */
+  font-family: var(--Family-Font, Inter);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.top_pros_items {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+/* this is for start section */
+.star {
+  color: var(--Primary, #0E7A60);
+  font-family: Inter;
+  font-size: 15.75px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  /* 152.381% */
+}
+
+/* this is for start des */
+.star_des {
+  color: #676D73;
+
+  /* H4/18 REGULAR */
+  font-family: var(--Family-Font, Inter);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 27px */
+}
+
+/* this is for profile icon */
+.user_profile {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  aspect-ratio: 1/1;
+  border-radius: 24px;
+  border: 2px solid var(--Primary-Hover, rgba(14, 122, 96, 0.10));
+}
+
+.user_card {
+  padding: 24px;
+  gap: 48px;
+  border-radius: 12px;
+  border: 1px solid var(--black-white-light-gray, #EBEBEB);
+  background: var(--black-white-white, #FFF);
+}
+
+/* this is view button */
+.view_button {
+  display: flex;
+  padding: 2px 24px;
+  align-items: flex-start;
+  border-radius: 4px;
+  border: 2px solid var(--Primary, #0E7A60);
+  background: var(--Primary, #0E7A60);
+}
+
+/* this is for page number */
+.page_number {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 14px;
+  border: 1px solid var(--black-white-light-gray, #EBEBEB);
+  background: #FFF;
+
+  /* Drop Shadow / drop-shadow-sm */
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* this is for people  say */
+.people_card {
+  width: 412.521px;
+  height: 211.717px;
+  border-radius: 7.5px;
+  background: var(--black-white-white, #FFF);
+}
+
+.people_card2 {
+  width: 376.5px;
+  height: 174px;
+  border-radius: 7.5px;
+  border: 1.5px solid rgba(102, 102, 102, 0.08);
+  box-shadow: 0 7.5px 18.5px 0 rgba(34, 34, 34, 0.35);
+}
+
+.people_head {
+  color: var(--Text-Primary-Text, #333);
+
+  /* H1/48 SEMI BOLD */
+  font-family: var(--Family-Font, Inter);
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+/* this is for left arrow */
+.left_arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 15px 9px;
+  gap: 10px;
+  border-radius: 15px;
+  border: 0.75px solid var(--Text-Secondary-Text, #666);
+  background: #FEFCFB;
+}
+
+/* this is for right arrow */
+.right_arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 15px 9px;
+  gap: 10px;
+  border-radius: 15px;
+  background: var(--Primary, #0E7A60);
+}
+
+/* this is bundle card */
+.bundle_card {
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+  justify-content: start;
+  gap: 24px;
+  align-items: center;
+  border-radius: 12px;
+  border: 1px solid var(--black-white-light-gray, #EBEBEB);
+  background: #FFF;
+
+  /* shadaw */
+  box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* this is for bundle view details */
+.bundle_view {
+  display: flex;
+  height: 43px;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--Primary-Hover, rgba(14, 122, 96, 0.10));
+  background: var(--Primary-Hover, rgba(14, 122, 96, 0.10));
+
+  /* Drop Shadow/drop-shadow */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.10), 0 1px 1px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* this is for view all button */
+.view_all {
+  display: flex;
+  padding: 8px 24px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--Primary, #0E7A60);
+}
+
+/* this is for modal */
+.modal {
+  display: flex;
+  padding: 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/*  this is for join bundle */
+.joinBundle {
+  display: flex;
+  height: 43px;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--Primary, #0E7A60);
+  background: var(--Primary, #0E7A60);
+
+  /* Drop Shadow/drop-shadow */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.10), 0 1px 1px 0 rgba(0, 0, 0, 0.06);
+}

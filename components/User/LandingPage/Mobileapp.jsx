@@ -2,7 +2,7 @@
 
 export default function NaibrlyLanding() {
   return (
-    <section className="w-full bg-cover bg-center bg-no-repeat bg-[url('/bg.jpg')] py-8 sm:py-12 lg:py-16">
+    <section className="w-full bg-cover bg-center bg-no-repeat bg-[url('/bg.jpg')]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
 
@@ -11,10 +11,10 @@ export default function NaibrlyLanding() {
             <img
               src="/Mobile.png"
               alt="Naibrly Mobile App"
-              className="w-auto h-64 sm:h-80 md:h-98 lg:h-[550px] xl:h-[650px] object-contain relative top-16"
+              className="w-auto h-64 sm:h-80 md:h-96 lg:h-[550px] xl:h-[650px] object-contain relative top-16"
             />
           </div>
-
+          {/* some change */}
           {/* Right side - Text content */}
           <div className="flex flex-col justify-center text-center md:text-left order-1 md:order-2 px-2">
             <div className="mb-6 sm:mb-8">
@@ -49,3 +49,4 @@ export default function NaibrlyLanding() {
     </section>
   );
 }
+// some
