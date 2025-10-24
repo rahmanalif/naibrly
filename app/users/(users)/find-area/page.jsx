@@ -6,7 +6,6 @@ import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import { IoArrowForwardSharp } from "react-icons/io5";
 import { IoArrowBack } from "react-icons/io5";
 import { bundlesData } from '../constans';
-import { FaRegCheckCircle } from "react-icons/fa";
 import NaibrlyLanding from '@/components/User/LandingPage/Mobileapp';
 
 
