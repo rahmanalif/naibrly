@@ -1,6 +1,6 @@
-import Hero from '@/components/User/LandingPage/Navbar';
+import Hero from '@/components/Global/Global/Navbar';
 import LoginForm from '@/components/Auth/LoginPage/LoginForm';
-import Footer from '@/components/User/LandingPage/Footer';
+import Footer from '@/components/Global/Global/Footer';
 
 export default function LoginPage() {
     return (

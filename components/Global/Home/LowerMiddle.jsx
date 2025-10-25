@@ -3,6 +3,7 @@
 import React from 'react';
 import { MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function NaibrlybundelOfferSection() {
   const offers = [
@@ -163,13 +164,15 @@ export default function NaibrlybundelOfferSection() {
 
         {/* CTA Button */}
         <div className="text-center">
-          <Button 
-            variant="outline"
-            className="border-2 border-teal-600 text-teal-600 hover:bg-teal-50 rounded-full px-8 py-6 text-base font-semibold"
-          >
-            Explore more Offer
-          </Button>
-        </div>
+            <Link href="/bunddle-offer">
+              <Button 
+                variant="outline"
+                className="border-2 border-teal-600 text-teal-600 hover:bg-teal-50 rounded-full px-8 py-6 text-base font-semibold"
+              >
+                Explore more service
+              </Button>
+            </Link>
+          </div>
       </div>
     </div>
   );

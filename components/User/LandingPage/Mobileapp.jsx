@@ -4,14 +4,14 @@ export default function NaibrlyLanding() {
   return (
     <section className="w-full bg-cover bg-center bg-no-repeat bg-[url('/bg.jpg')]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-4 lg:gap-12 items-center">
 
           {/* Left side - Phone mockup */}
-          <div className="flex justify-center md:justify-start order-2 md:order-1">
+          <div className="flex justify-center md:justify-start order-4 md:order-1">
             <img
               src="/Mobile.png"
               alt="Naibrly Mobile App"
-              className="w-auto h-64 sm:h-80 md:h-96 lg:h-[550px] xl:h-[650px] object-contain relative top-16"
+              className="w-auto h-64 sm:h-80 md:h-96 lg:h-[550px] xl:h-[650px] object-contain relative "
             />
           </div>
           {/* some change */}

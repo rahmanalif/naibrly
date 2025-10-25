@@ -3,11 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { ChevronRight, ChevronDown, Bell, LogOut, User as UserIcon, Menu, X } from 'lucide-react';
+import { ChevronRight, ChevronDown, LogOut, User as UserIcon, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import SignInModal from '@/components/User/Modals/WithoutSignUpModal';
-import BundleOfferModal from '@/components/User/Modals/BundleOfferModal';
-import NotificationModal from '@/components/User/Modals/NotificationModal';
+import SignInModal from '@/components/Global/Modals/WithoutSignUpModal';
+import BundleOfferModal from '@/components/Global/Modals/BundleOfferModal';
+import NotificationModal from '@/components/Global/Modals/NotificationModal';
+import UserTypeSelectionModal from '@/components/Global/Modals/UserTypeSelectionModal';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -48,13 +49,17 @@ export default function Navbar() {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSignInMenuOpen, setIsSignInMenuOpen] = useState(false);
-    const [mounted, setMounted] = useState(false);
+    const [isUserTypeModalOpen, setIsUserTypeModalOpen] = useState(false);
+    const [userTypeModalMode, setUserTypeModalMode] = useState('signup'); // 'signup' or 'signin'
     const pathname = usePathname();
 
     // Get authentication state (now using Redux under the hood)
-    const { isAuthenticated, user, logout } = useAuth();
+    const { isAuthenticated, user, userType, logout } = useAuth();
 
     const isHomePage = pathname === '/' || pathname === '/login' || pathname === '/signup';
+
+    // Helper function to check if a button is active
+    const isActive = (path) => pathname === path;
 
     // Close modal when pathname changes (user navigates to different page)
     useEffect(() => {
@@ -63,6 +68,7 @@ export default function Navbar() {
         setIsUserMenuOpen(false);
         setIsMobileMenuOpen(false);
         setIsSignInMenuOpen(false);
+        setIsUserTypeModalOpen(false);
     }, [pathname]);
 
     // Close dropdowns when clicking outside
@@ -97,11 +103,6 @@ export default function Navbar() {
             document.body.style.overflow = 'unset';
         };
     }, [isMobileMenuOpen]);
-
-    // Set mounted after component mounts to prevent hydration mismatch
-    useEffect(() => {
-        setMounted(true);
-    }, []);
 
     const services = [
         {
@@ -245,60 +246,38 @@ export default function Navbar() {
 
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex gap-2 sm:gap-4 items-center">
-                    {mounted && (isAuthenticated ? (
-                        <Link href="/#">
-                            <Button className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600">
-                                Home
-                            </Button>
-                        </Link>
-                    ) : (
-                        <Button
-                            onClick={() => {
-                                // Only show modal if on home page AND not authenticated
-                                if (isHomePage && !isAuthenticated) {
-                                    openModal();
-                                }
-                            }}
-                            className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600"
-                        >
+                    {/* HOME BUTTON - All states */}
+                    <Link href="/home">
+                        <Button className={`${
+                            isActive('/home')
+                                ? 'text-teal-600 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-teal-600'
+                                : 'text-gray-700 hover:text-teal-600'
+                        } bg-transparent text-base px-3 sm:px-4 transition-all border-0 shadow-none hover:bg-transparent`}>
                             Home
                         </Button>
-                    ))}
+                    </Link>
 
-                    {/* Show "Naibrly Bundle Offer" button only when authenticated */}
-                    {isAuthenticated && (
-                        <Button
-                            onClick={() => setIsBundleModalOpen(true)}
-                            className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600"
-                        >
-                            Naibrly Bundle Offer
-                        </Button>
-                    )}
-
+                    {/* EXPLORE SERVICES - Accessible to ALL user types (global, user, provider) */}
                     <div className="relative service-dropdown-container">
                         <Button
                             variant="outline"
-                            className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600"
-                            onClick={() => {
-                                // Only show modal if on home page AND not authenticated
-                                if (isHomePage && !isAuthenticated) {
-                                    openModal();
-                                } else if (isAuthenticated) {
-                                    setIsServiceOpen(!isServiceOpen);
-                                }
-                            }}
-                            onMouseEnter={() => isAuthenticated && setIsServiceOpen(true)}
+                            className={`${
+                                isServiceOpen
+                                    ? 'text-teal-600'
+                                    : 'text-gray-700 hover:text-teal-600'
+                            } bg-transparent text-base px-3 sm:px-4 transition-all border-0 shadow-none hover:bg-transparent`}
+                            onClick={() => setIsServiceOpen(!isServiceOpen)}
+                            onMouseEnter={() => setIsServiceOpen(true)}
                         >
-                            <span className="hidden sm:inline">Service</span>
-                            <span className="sm:hidden">Service</span>
-                            <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 ml-1 transition-transform ${isServiceOpen ? 'rotate-180' : ''}`} />
+                            <span>Explore Services</span>
+                            <ChevronDown className={`w-4 h-4 ml-1 transition-transform ${isServiceOpen ? 'rotate-180' : ''}`} />
                         </Button>
 
-                        {isServiceOpen && isAuthenticated && (
-                            <div
-                                className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-[110]"
-                                onMouseLeave={() => setIsServiceOpen(false)}
-                            >
+                            {isServiceOpen && (
+                                <div
+                                    className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-[110]"
+                                    onMouseLeave={() => setIsServiceOpen(false)}
+                                >
                                 <div className="p-3 space-y-1">
                                     {/* Interior Section */}
                                     <h3 className="font-semibold text-gray-900 text-base px-3 py-2">Interior</h3>
@@ -307,9 +286,9 @@ export default function Navbar() {
                                         onMouseEnter={() => setHoveredService(0)}
                                         onMouseLeave={() => setHoveredService(null)}
                                     >
-                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
-                                            <span className="text-[#00CD49]">Home Repairs & Maintenance</span>
-                                            <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center group">
+                                            <span className="group-hover:text-[#00CD49]">Home Repairs & Maintenance</span>
+                                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 0 && (
                                             <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
@@ -336,9 +315,9 @@ export default function Navbar() {
                                         onMouseEnter={() => setHoveredService(1)}
                                         onMouseLeave={() => setHoveredService(null)}
                                     >
-                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
-                                            <span className="text-[#00CD49]">Cleaning & Organization</span>
-                                            <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center group">
+                                            <span className="group-hover:text-[#00CD49]">Cleaning & Organization</span>
+                                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 1 && (
                                             <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
@@ -357,9 +336,9 @@ export default function Navbar() {
                                         onMouseEnter={() => setHoveredService(2)}
                                         onMouseLeave={() => setHoveredService(null)}
                                     >
-                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
-                                            <span className="text-[#00CD49]">Renovations & Upgrades</span>
-                                            <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center group">
+                                            <span className="group-hover:text-[#00CD49]">Renovations & Upgrades</span>
+                                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 2 && (
                                             <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
@@ -381,9 +360,9 @@ export default function Navbar() {
                                         onMouseEnter={() => setHoveredService(3)}
                                         onMouseLeave={() => setHoveredService(null)}
                                     >
-                                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
-                                        <span className="text-[#00CD49]">Exterior Home Care</span>
-                                        <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center group">
+                                        <span className="group-hover:text-[#00CD49]">Exterior Home Care</span>
+                                        <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#00CD49]" />
                                     </button>
                                     {hoveredService === 3 && (
                                             <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
@@ -402,9 +381,9 @@ export default function Navbar() {
                                         onMouseEnter={() => setHoveredService(4)}
                                         onMouseLeave={() => setHoveredService(null)}
                                     >
-                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
-                                            <span className="text-[#00CD49]">Landscaping & Outdoor Services</span>
-                                            <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center group">
+                                            <span className="group-hover:text-[#00CD49]">Landscaping & Outdoor Services</span>
+                                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 4 && (
                                             <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
@@ -426,9 +405,9 @@ export default function Navbar() {
                                         onMouseEnter={() => setHoveredService(5)}
                                         onMouseLeave={() => setHoveredService(null)}
                                     >
-                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
-                                            <span className="text-[#00CD49]">Moving</span>
-                                            <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center group">
+                                            <span className="group-hover:text-[#00CD49]">Moving</span>
+                                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 5 && (
                                             <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
@@ -447,9 +426,9 @@ export default function Navbar() {
                                         onMouseEnter={() => setHoveredService(6)}
                                         onMouseLeave={() => setHoveredService(null)}
                                     >
-                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center">
-                                            <span className="text-[#00CD49]">Installation & Assembly</span>
-                                            <ChevronRight className="w-4 h-4 text-[#00CD49]" />
+                                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md text-sm text-gray-900 transition-colors flex justify-between items-center group">
+                                            <span className="group-hover:text-[#00CD49]">Installation & Assembly</span>
+                                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#00CD49]" />
                                         </button>
                                         {hoveredService === 6 && (
                                             <div className="absolute left-full top-0 ml-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-[120]">
@@ -471,25 +450,28 @@ export default function Navbar() {
                         )}
                     </div>
 
-                    {/* Show Order button only when authenticated */}
-                    {isAuthenticated && (
-                        <Button
-                            variant="outline"
-                            className="bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-xs sm:text-sm px-3 sm:px-4 rounded-md border border-teal-600"
-                        >
-                            Order
+                    {/* REQUEST button - For all states */}
+                    <Link href={isAuthenticated ? (userType === 'provider' ? '/provider/requests' : '/request') : '/join-provider'}>
+                        <Button className={`${
+                            isActive('/request') || isActive('/provider/requests') || isActive('/join-provider')
+                                ? 'text-teal-600 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-teal-600'
+                                : 'text-gray-700 hover:text-teal-600'
+                        } bg-transparent text-base px-3 sm:px-4 transition-all border-0 shadow-none hover:bg-transparent`}>
+                            {isAuthenticated ? 'Request' : 'Become a Pro'}
                         </Button>
-                    )}
+                    </Link>
 
-                    {/* Show Notification button only when authenticated */}
-                    {isAuthenticated && (
-                        <Button
-                            onClick={() => setIsNotificationModalOpen(true)}
-                            variant="outline"
-                            className="border-teal-600 text-teal-600 hover:bg-teal-50 text-xs sm:text-sm px-3 sm:px-4 rounded-md hidden md:flex items-center"
-                        >
-                            Notification
-                        </Button>
+                    {/* BUNDLES button - Only for authenticated user type */}
+                    {isAuthenticated && userType === 'user' && (
+                        <Link href="/bundles">
+                            <Button className={`${
+                                isActive('/bundles')
+                                    ? 'text-teal-600 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-teal-600'
+                                    : 'text-gray-700 hover:text-teal-600'
+                            } bg-transparent text-base px-3 sm:px-4 transition-all border-0 shadow-none hover:bg-transparent`}>
+                                Bundles
+                            </Button>
+                        </Link>
                     )}
 
                     {/* Authentication Section - Shows different UI based on login state */}
@@ -536,51 +518,28 @@ export default function Navbar() {
                             )}
                         </div>
                     ) : (
-                        // NOT LOGGED IN STATE - Show sign in button
-                        isHomePage ? (
-                            <div className="relative signin-menu-container">
-                                <Button
-                                    variant="outline"
-                                    className="border-teal-600 text-teal-600 hover:bg-teal-50 flex items-center text-xs sm:text-sm px-3 sm:px-4 rounded-md"
-                                    onClick={() => setIsSignInMenuOpen(!isSignInMenuOpen)}
-                                >
-                                    <span className="hidden sm:inline">Sign in</span>
-                                    <span className="sm:hidden">Login</span>
-                                    <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 ml-1 transition-transform ${isSignInMenuOpen ? 'rotate-180' : ''}`} />
-                                </Button>
-                                {isSignInMenuOpen && (
-                                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-[110]">
-                                        <div className="py-2">
-                                            <Link href="/Login?type=user">
-                                                <button
-                                                    onClick={() => setIsSignInMenuOpen(false)}
-                                                    className="w-full text-left px-4 py-2 border-b hover:bg-teal-50 text-sm text-gray-700 hover:text-teal-600"
-                                                >
-                                                    User
-                                                </button>
-                                            </Link>
-                                            <Link href="/Login?type=provider">
-                                                <button
-                                                    onClick={() => setIsSignInMenuOpen(false)}
-                                                    className="w-full text-left px-4 py-2 hover:bg-teal-50 text-sm text-gray-700 hover:text-teal-600"
-                                                >
-                                                    Provider
-                                                </button>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        ) : (
-                            <Link href="/Login">
-                                <Button
-                                    variant="outline"
-                                    className="border-teal-600 text-teal-600 hover:bg-teal-50 text-xs sm:text-sm px-3 sm:px-4 rounded-md"
-                                >
-                                    Sign in
-                                </Button>
-                            </Link>
-                        )
+                        // NOT LOGGED IN STATE - Show Sign In and Create Account buttons
+                        <>
+                            <Button
+                                onClick={() => {
+                                    setUserTypeModalMode('signin');
+                                    setIsUserTypeModalOpen(true);
+                                }}
+                                variant="outline"
+                                className="border-teal-600 text-teal-600 hover:bg-teal-50 text-base px-4 sm:px-6 py-2 rounded-md transition-all"
+                            >
+                                Sign In
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    setUserTypeModalMode('signup');
+                                    setIsUserTypeModalOpen(true);
+                                }}
+                                className="bg-teal-600 text-white hover:bg-teal-700 text-base px-4 sm:px-6 py-2 rounded-md transition-all border-0"
+                            >
+                                Create Account
+                            </Button>
+                        </>
                     )}
                 </div>
             </div>
@@ -589,11 +548,16 @@ export default function Navbar() {
             {isMobileMenuOpen && (
                 <div className="md:hidden bg-white border-t border-gray-200 absolute top-full left-0 right-0 max-h-[calc(100vh-80px)] overflow-y-auto shadow-lg">
                     <div className="px-4 py-4 space-y-3">
+                        {/* HOME - All states */}
                         {isAuthenticated ? (
                             <Link href="/" passHref>
                                 <Button
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="w-full bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-sm px-4 rounded-md border border-teal-600"
+                                    className={`w-full ${
+                                        isActive('/')
+                                            ? 'bg-teal-600 text-white'
+                                            : 'bg-white text-gray-800 hover:text-teal-600'
+                                    } text-sm px-4 rounded-md border border-transparent`}
                                 >
                                     Home
                                 </Button>
@@ -606,62 +570,64 @@ export default function Navbar() {
                                         openModal();
                                     }
                                 }}
-                                className="w-full bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-sm px-4 rounded-md border border-teal-600"
+                                className={`w-full ${
+                                    isActive('/')
+                                        ? 'bg-teal-600 text-white'
+                                        : 'bg-white text-gray-800 hover:text-teal-600'
+                                } text-sm px-4 rounded-md border border-transparent`}
                             >
                                 Home
                             </Button>
                         )}
 
-                        {isAuthenticated && (
-                            <Button
-                                onClick={() => {
-                                    setIsMobileMenuOpen(false);
-                                    setIsBundleModalOpen(true);
-                                }}
-                                className="w-full bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-sm px-4 rounded-md border border-teal-600"
-                            >
-                                Naibrly Bundle Offer
-                            </Button>
-                        )}
-
+                        {/* EXPLORE SERVICES - Accessible to ALL user types */}
                         <Button
                             variant="outline"
-                            className="w-full bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-sm px-4 rounded-md border border-teal-600"
+                            className={`w-full ${
+                                isServiceOpen
+                                    ? 'bg-teal-600 text-white'
+                                    : 'bg-white text-gray-800 hover:text-teal-600'
+                            } text-sm px-4 rounded-md border border-transparent`}
                             onClick={() => {
                                 setIsMobileMenuOpen(false);
-                                if (isHomePage && !isAuthenticated) {
-                                    openModal();
-                                } else if (isAuthenticated) {
-                                    setIsServiceOpen(!isServiceOpen);
-                                }
+                                setIsServiceOpen(!isServiceOpen);
                             }}
                         >
-                            Service
+                            Explore Services
                             <ChevronDown className={`w-4 h-4 ml-1 transition-transform ${isServiceOpen ? 'rotate-180' : ''}`} />
                         </Button>
 
-                        {isAuthenticated && (
-                            <>
+                        {/* BUNDLES - Only for user type */}
+                        {isAuthenticated && userType === 'user' && (
+                            <Link href="/bundles">
                                 <Button
-                                    variant="outline"
-                                    className="w-full bg-white text-teal-600 hover:bg-teal-700 hover:text-white text-sm px-4 rounded-md border border-teal-600"
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    Order
-                                </Button>
-
-                                <Button
-                                    onClick={() => {
-                                        setIsMobileMenuOpen(false);
-                                        setIsNotificationModalOpen(true);
-                                    }}
                                     variant="outline"
-                                    className="w-full border-teal-600 text-teal-600 hover:bg-teal-50 text-sm px-4 rounded-md"
+                                    className={`w-full ${
+                                        isActive('/bundles')
+                                            ? 'bg-teal-600 text-white'
+                                            : 'bg-white text-gray-800 hover:text-teal-600'
+                                    } text-sm px-4 rounded-md border border-transparent`}
                                 >
-                                    Notification
+                                    Bundles
                                 </Button>
-                            </>
+                            </Link>
                         )}
+
+                        {/* REQUEST - For all states */}
+                        <Link href={isAuthenticated ? (userType === 'provider' ? '/provider/requests' : '/request') : '/join-provider'}>
+                            <Button
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                variant="outline"
+                                className={`w-full ${
+                                    isActive('/request') || isActive('/provider/requests') || isActive('/join-provider')
+                                        ? 'bg-teal-600 text-white'
+                                        : 'bg-white text-gray-800 hover:text-teal-600'
+                                } text-sm px-4 rounded-md border border-transparent`}
+                            >
+                                {isAuthenticated ? 'Request' : 'Become a Pro'}
+                            </Button>
+                        </Link>
 
                         {isAuthenticated ? (
                             <div className="border-t pt-3 space-y-2">
@@ -686,36 +652,29 @@ export default function Navbar() {
                                 </button>
                             </div>
                         ) : (
-                            isHomePage ? (
-                                <div className="border-t pt-3 space-y-2">
-                                    <Link href="/Login?type=user" className="block">
-                                        <button
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                            className="w-full text-left px-4 py-2 hover:bg-teal-50 text-sm text-gray-700 hover:text-teal-600 rounded-md"
-                                        >
-                                            Sign in as User
-                                        </button>
-                                    </Link>
-                                    <Link href="/Login?type=provider" className="block">
-                                        <button
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                            className="w-full text-left px-4 py-2 hover:bg-teal-50 text-sm text-gray-700 hover:text-teal-600 rounded-md"
-                                        >
-                                            Sign in as Provider
-                                        </button>
-                                    </Link>
-                                </div>
-                            ) : (
-                                <Link href="/Login" className="block">
-                                    <Button
-                                        variant="outline"
-                                        className="w-full border-teal-600 text-teal-600 hover:bg-teal-50 text-sm px-4 rounded-md"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                    >
-                                        Sign in
-                                    </Button>
-                                </Link>
-                            )
+                            <div className="border-t pt-3 space-y-2">
+                                <Button
+                                    onClick={() => {
+                                        setUserTypeModalMode('signin');
+                                        setIsUserTypeModalOpen(true);
+                                        setIsMobileMenuOpen(false);
+                                    }}
+                                    variant="outline"
+                                    className="w-full border-teal-600 text-teal-600 hover:bg-teal-50 text-sm px-4 rounded-md"
+                                >
+                                    Sign In
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        setUserTypeModalMode('signup');
+                                        setIsUserTypeModalOpen(true);
+                                        setIsMobileMenuOpen(false);
+                                    }}
+                                    className="w-full bg-teal-600 text-white hover:bg-teal-700 text-sm px-4 rounded-md"
+                                >
+                                    Create Account
+                                </Button>
+                            </div>
                         )}
                     </div>
                 </div>
@@ -734,6 +693,13 @@ export default function Navbar() {
             <NotificationModal
                 isOpen={isNotificationModalOpen}
                 onClose={() => setIsNotificationModalOpen(false)}
+            />
+
+            {/* User Type Selection Modal */}
+            <UserTypeSelectionModal
+                isOpen={isUserTypeModalOpen}
+                onClose={() => setIsUserTypeModalOpen(false)}
+                mode={userTypeModalMode}
             />
         </nav>
     );

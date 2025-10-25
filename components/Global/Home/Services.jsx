@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function OurServicesSection() {
   const services = [
@@ -90,12 +91,14 @@ export default function OurServicesSection() {
 
           {/* CTA Button */}
           <div className="text-center">
-            <Button 
-              variant="outline"
-              className="border-2 border-teal-600 text-teal-600 hover:bg-teal-50 rounded-full px-8 py-6 text-base font-semibold"
-            >
-              Explore more service
-            </Button>
+            <Link href="/our-services">
+              <Button 
+                variant="outline"
+                className="border-2 border-teal-600 text-teal-600 hover:bg-teal-50 rounded-full px-8 py-6 text-base font-semibold"
+              >
+                Explore more service
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

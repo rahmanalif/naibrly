@@ -1,65 +1,39 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
-function LoginFormContent() {
+export default function ProviderLoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [userType, setUserType] = useState('user'); // Default to 'user'
 
   const { login } = useAuth();
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  // Get user type from URL query parameter
-  useEffect(() => {
-    const type = searchParams.get('type');
-    if (type === 'provider' || type === 'user') {
-      setUserType(type);
-    }
-  }, [searchParams]);
 
   const handleLogin = (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    console.log('LoginForm - Starting login with userType:', userType);
-
-    // Since you don't have a backend yet, this is a mock login
-    // Replace this with your actual API call when you have a backend
+    // Mock login for provider
     setTimeout(() => {
-      // Mock user data - replace with actual API response
-      const mockUser = {
+      const mockProvider = {
         id: '1',
-        name: email.split('@')[0], // Use email prefix as name for demo
+        name: email.split('@')[0],
         email: email,
         profileImage: null,
-        role: userType // Set role based on selected user type
+        role: 'provider'
       };
 
-      console.log('LoginForm - Calling login with:', { user: mockUser, userType });
-
-      // Call the login function with user data and userType (uses Redux under the hood)
-      login({ user: mockUser, userType });
-
+      login({ user: mockProvider, userType: 'provider' });
       setIsLoading(false);
-
-      // Redirect based on user type
-      if (userType === 'provider') {
-        console.log('LoginForm - Redirecting to /business');
-        router.push('/business'); // Redirect to business page for providers
-      } else {
-        console.log('LoginForm - Redirecting to /');
-        router.push('/'); // Redirect to home page for users
-      }
-    }, 1000); // Simulate network delay
+      router.push('/business');
+    }, 1000);
   };
 
   return (
@@ -68,10 +42,10 @@ function LoginFormContent() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-semibold text-slate-900 mb-2">
-            Welcome Back
+            Provider Login
           </h1>
           <p className="text-slate-500 text-sm">
-            Hello there, login to continue
+            Sign in to manage your business
           </p>
         </div>
 
@@ -83,7 +57,7 @@ function LoginFormContent() {
             </label>
             <Input
               type="email"
-              placeholder="Jhon@gmail.com"
+              placeholder="provider@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-slate-50 text-slate-900"
@@ -171,26 +145,11 @@ function LoginFormContent() {
 
         {/* Create Account Link */}
         <p className="text-center text-slate-600 text-sm">
-          <a href="/create-account" className="text-slate-700 hover:text-teal-600 underline font-medium">
-            Create account
+          <a href="/provider/signup" className="text-slate-700 hover:text-teal-600 underline font-medium">
+            Create provider account
           </a>
         </p>
       </div>
     </div>
-  );
-}
-
-// Wrapper component with Suspense boundary
-export default function LoginForm() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
-        <div className="w-full max-w-md bg-white rounded-lg shadow-sm p-8">
-          <div className="text-center text-slate-600">Loading...</div>
-        </div>
-      </div>
-    }>
-      <LoginFormContent />
-    </Suspense>
   );
 }

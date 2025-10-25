@@ -7,8 +7,10 @@ import Rectangle1  from "@/public/Home/Rectangle a.png";
 import Rectangle2  from "@/public/Home/Rectangle b.png";
 import Rectangle3  from "@/public/Home/Rectangle c.png";
 import MapBg from "@/public/map image.png";
+import { useRouter } from 'next/navigation';
 
 export default function NaibrlyHeroSection() {
+  const router = useRouter();
   const [searchOpen, setSearchOpen] = useState(false);
   const [zipOpen, setZipOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -171,6 +173,13 @@ export default function NaibrlyHeroSection() {
                   onClick={() => {
                     setSearchOpen(false);
                     setZipOpen(false);
+                    // Navigate to find-area page with search parameters
+                    if (searchQuery || zipCode) {
+                      const params = new URLSearchParams();
+                      if (searchQuery) params.set('service', searchQuery);
+                      if (zipCode) params.set('zip', zipCode);
+                      router.push(`/find-area?${params.toString()}`);
+                    }
                   }}
                   className="bg-teal-600 hover:bg-teal-700 w-[56px] h-[56px] rounded-[14px] mr-2 flex items-center justify-center shadow-md"
                 >

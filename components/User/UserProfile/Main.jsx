@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { User, Phone, Mail, MapPin, Calendar } from 'lucide-react';
-import EditProfile from '@/components/User/Modals/EditProfile';
+import EditProfile from '@/components/Global/Modals/EditProfile';
 
 export default function ProfileServicesSection() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);

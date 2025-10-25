@@ -1,16 +1,23 @@
-import Hero from '@/components/User/LandingPage/Hero';
+import Hero from '@/components/Global/Home/Hero';
+import UpperMiddle from '@/components/Global/Home/UpperMiddle';
+import MiddleMiddle from '@/components/Global/Home/Services';
+import LowerMiddle from '@/components/Global/Home/LowerMiddle';
+import UpperLower from '@/components/Global/Home/UpperLower';
+import AboutUs from '@/components/Global/Home/AboutUs';
+import Frequently from '@/components/Global/Home/Frequently';
 import Mobileapp from '@/components/User/LandingPage/Mobileapp';
-import Services from '@/components/User/LandingPage/Services';
-import Review from '@/components/User/LandingPage/Review';
-import Footer from '@/components/User/LandingPage/Footer';
 
 export default function Home() {
   return (
     <main>
       <Hero/>
+      <UpperMiddle/>
+      <MiddleMiddle/>
+      <LowerMiddle/>
+      <UpperLower/>
+      <AboutUs/>
+      <Frequently/>
       <Mobileapp/>
-      <Services/>
-      <Review/>
     </main>
   );
 }

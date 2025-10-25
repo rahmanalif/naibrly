@@ -75,12 +75,12 @@ export default function NaibrlyFooter() {
               <h4 className="text-xl font-bold mb-6">Company</h4>
               <ul className="space-y-4">
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                  <a href="/aboutus" className="text-gray-300 hover:text-white transition-colors">
                     About us
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                  <a href="/our-services" className="text-gray-300 hover:text-white transition-colors">
                     Services
                   </a>
                 </li>
@@ -97,18 +97,18 @@ export default function NaibrlyFooter() {
               <h4 className="text-xl font-bold mb-6">Legal</h4>
               <ul className="space-y-4">
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                  <a href="/terms-of-use" className="text-gray-300 hover:text-white transition-colors">
                     Terms
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                  <a href="/privacy-policy" className="text-gray-300 hover:text-white transition-colors">
                     Privacy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
-                    License
+                  <a href="/join-provider" className="text-gray-300 hover:text-white transition-colors">
+                    Become A Pro
                   </a>
                 </li>
               </ul>

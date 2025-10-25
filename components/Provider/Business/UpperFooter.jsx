@@ -55,13 +55,6 @@ export default function RealResults() {
         </div>
 
         {/* Earning Potential Section */}
-        <div className="text-center bg-gray-50 rounded-xl p-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">See your earning potential.</h2>
-          
-          <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed mb-8">
-            Use our <span className="font-semibold">Growth Calculator*</span> to explore how your business could grow on Thumbtack. Enter your info into the calculator below to gain a clear view of what's possible.
-          </p>
-        </div>
       </div>
     </div>
   );

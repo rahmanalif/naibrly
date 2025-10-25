@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import Navbar from '@/components/User/LandingPage/Navbar';
+import Navbar from '@/components/Global/Global/Navbar';
 import ProviderNavbar from '@/components/Provider/ProviderNavbar';
 
 /**

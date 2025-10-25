@@ -3,8 +3,12 @@
 import React from 'react';
 import { MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useSearchParams } from 'next/navigation';
 
 export default function NaibrlybundelOfferSection() {
+  const searchParams = useSearchParams();
+  const serviceParam = searchParams.get('service');
+  const zipParam = searchParams.get('zip');
   const offers = [
     {
       id: 1,
@@ -98,62 +102,65 @@ export default function NaibrlybundelOfferSection() {
         {/* Header */}
         <div className="mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
-            Plumbers and Bundles near you
+            {serviceParam ? `${serviceParam} and Bundles near you` : 'Plumbers and Bundles near you'}
+            {zipParam && ` in ${zipParam}`}
           </h2>
           <p className="text-gray-500 text-base max-w-3xl">
-            Plumbers often repair clogged drains, leaky faucets, or faulty water heaters — helping protect your home from water damage and keep your systems running smoothly.
+            {serviceParam
+              ? `Find professional ${serviceParam.toLowerCase()} services in your area. Save time and money by bundling with your neighbors.`
+              : 'Plumbers often repair clogged drains, leaky faucets, or faulty water heaters — helping protect your home from water damage and keep your systems running smoothly.'}
           </p>
         </div>
 
         {/* Offers Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {offers.map((offer) => (
-            <div 
+            <div
               key={offer.id}
               className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300"
             >
               {/* Header with Service Name and Images */}
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-gray-900">
+              <div className="flex items-start justify-between mb-5">
+                <h3 className="text-2xl font-semibold text-gray-900">
                   {offer.service}
                 </h3>
-                <div className="flex -space-x-2">
+                <div className="flex -space-x-3">
                   {offer.images.map((img, idx) => (
                     <img
                       key={idx}
                       src={img}
                       alt={`Person ${idx + 1}`}
-                      className="w-10 h-10 rounded-full border-2 border-white object-cover"
+                      className="w-12 h-12 rounded-full border-3 border-white object-cover ring-2 ring-white"
                     />
                   ))}
                 </div>
               </div>
 
               {/* Bundle Info */}
-              <p className="text-sm text-gray-700 font-medium mb-2">
+              <p className="text-base text-gray-900 font-bold mb-3">
                 {offer.bundle}
               </p>
 
               {/* Location */}
-              <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
-                <MapPin className="w-4 h-4" />
-                <span>{offer.location}</span>
+              <div className="flex items-center gap-2 text-sm text-gray-600 mb-6">
+                <MapPin className="w-5 h-5 text-gray-500" />
+                <span className=" text-[#666]">{offer.location}</span>
               </div>
 
               {/* Pricing and CTA */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="text-red-500 line-through font-medium">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-red-500 line-through font-normal text-lg">
                     {offer.originalPrice}
                   </span>
-                  <span className="text-xl font-bold text-gray-900">
+                  <span className="text-2xl font-semibold text-gray-900">
                     {offer.discountedPrice}
                   </span>
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-green-600 font-medium">
                     {offer.savings}
                   </span>
                 </div>
-                <Button className="bg-teal-600 hover:bg-teal-700 text-white rounded-lg px-6 py-2">
+                <Button className="bg-[#EBEBEB] hover:bg-teal-100 text-teal-600 rounded-lg px-5 py-2 font-medium shadow-none border-0">
                   View details
                 </Button>
               </div>
