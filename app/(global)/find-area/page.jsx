@@ -14,4 +14,5 @@ export default function SearchPage() {
             <Mobileapp/>
         </div>
     );
+    //new
 }
